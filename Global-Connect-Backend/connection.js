@@ -1,13 +1,10 @@
-const mongoose = require('mongodb').MongoClient
+const mongoose = require('mongoose');
 
-MongoClient.connect('mongodb://localhost:27017/globle-connect', (err, client) => {
-  if (err) throw err
 
-  const db = client.db('animals')
+// DB name global-connect
 
-  db.collection('mammals').find().toArray((err, result) => {
-    if (err) throw err
-
-    console.log(result)
-  })
+mongoose.connect('mongodb://localhost:27017/global-connect').then(res=>{
+    console.log("Database Successfully connected")
+}).catch(err=>{
+    console.log(err)
 })
