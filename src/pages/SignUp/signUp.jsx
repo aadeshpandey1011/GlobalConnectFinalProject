@@ -67,3 +67,4 @@ const SignUp = (props) => {
 }
 
 export default SignUp
+// updated SignUp.jsx page code copy it out
