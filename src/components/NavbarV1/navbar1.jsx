@@ -21,3 +21,4 @@ const Navbar1 = () => {
 }
 
 export default Navbar1
+// updated navbar1 code you can copy it out 
