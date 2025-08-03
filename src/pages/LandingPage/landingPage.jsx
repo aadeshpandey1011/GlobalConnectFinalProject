@@ -17,3 +17,4 @@ const LandingPage = (props) => {
 }
 
 export default LandingPage
+// landing page logo update 
