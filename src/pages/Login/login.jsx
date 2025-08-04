@@ -57,3 +57,4 @@ const Login = (props) => {
 }
 
 export default Login
+// in login page some content and color is changed only till now 
