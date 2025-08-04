@@ -95,3 +95,46 @@ exports.loginThroghGmail = async (req, res) => {
         res.status(500).json({ error: 'Server error', message: err.message });
     }
 }
+
+
+
+exports.updateUser = async (req, res) => {
+    try {
+        const { user } = req.body;
+        const isExist = await User.findById(req.user._id);
+        if (!isExist) {
+            return res.status(400).json({ error: 'User Doesnt exist' });
+        }
+        const updateData =await User.findByIdAndUpdate(isExist._id,user)
+        const userData =await User.findById(req.user._id);
+        res.status(200).json({
+            message:"User Updated Successfully",
+            user:userData
+        });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Server error', message: err.message });
+    }
+}
+
+
+exports.getProfileById = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const isExist = await User.findById(id);
+        if(!isExist){
+            return res.ststus(400).json({error:"No Such User Exist"})
+        }
+        return res.status(200).json({
+            message:"User Fached successfully",
+            user:isExist
+        });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Server error', message: err.message });
+    }
+}
+
+exports.logout = async (req, res) => {
+    res.clearCookie('token', cookieOptions).json({ message: 'Logged out successfully' });
+}
