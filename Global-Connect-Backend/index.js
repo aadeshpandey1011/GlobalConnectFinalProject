@@ -1,13 +1,23 @@
 const express = require('express')
 const app = express()
-const port = 4000
+const cookieParser = require('cookie-parser')
+
 
 
 require('./connection');
-app.get('/', (req, res) => {
-  res.send('Hello World!  Get')
-})
 
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
+require('dotenv').config({path:"./config.env"});
+
+const PORT = process.env.PORT || 4000;
+
+app.use(express.json());
+app.use(cookieParser());
+
+const UserRoutes = require('./routes/user');
+
+
+app.use('/api/auth',UserRoutes);
+
+app.listen(PORT, () => {
+  console.log(`Example app listening on port ${PORT}`)
 })
