@@ -58,3 +58,36 @@ exports.likeDislikePost = async (req, res) => {
         res.status(500).json({ error: 'Server error', message: err.message });
     }
 }
+
+
+exports.getAllPost = async (req, res) => {
+    try {
+        let posts = await PostModel.find().sort({ createdAt: -1 }).populate("user", "-password");
+        res.status(200).json({
+            message:"Fetched Data",
+            posts:posts
+        })
+
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Server error', message: err.message });
+    }
+}
+
+
+exports.getPostByPostId = async (req, res) => {
+    try {
+        const { postId } = req.params;
+        const post = await PostModel.findById(postId).populate("user", "-password");
+        if(!post){
+            return res.status(400).json({error:"No such post found"})
+        }
+        return res.status(200).json({
+            message:"Fetched Data",
+            post:post
+        })
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Server error', message: err.message });
+    }
+}
