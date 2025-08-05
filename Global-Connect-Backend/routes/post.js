@@ -10,8 +10,8 @@ router.get('/getAllPost',PostController.getAllPost);
 
 router.get('/getPostById/:postId',PostController.getPostByPostId);
 
-// router.get('/getTop5Post/:userId',PostController.getTop5PostForUser)
+router.get('/getTop5Post/:userId',PostController.getTop5PostForUser)
 
-// router.get('/getAllPostForUser/:userId',PostController.getAllPostForUser)
+router.get('/getAllPostForUser/:userId',PostController.getAllPostForUser)
 
 module.exports = router;
