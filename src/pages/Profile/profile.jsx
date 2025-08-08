@@ -208,9 +208,11 @@ const Profile = () => {
                     <div>
                         <Card padding={0}>
                             <div className='w-full h-fit '>
-                                {/* 
-                        Please Watch the video for full code
-                    */}
+                                <div className='w-full h-[200px] relative'>
+                                    <div className='absolute cursor-pointer top-3 right-3 z-20 w-[35px] flex justify-center items-center h-[35px] rounded-full p-3 bg-white' onClick={handleOnEditCover}><EditIcon /></div>
+                                    <img src='https://thumbs.dreamstime.com/z/idyllic-summer-landscape-clear-mountain-lake-alps-45054687.jpg?ct=jpeg' className='w-full h-[200px] rounded-tr-lg rounded-tl-lg ' />
+                                    <div onClick={handleCircularimageOpen} className='absolute object-cover top-24 left-6 z-10'><img className='rounded-full border=2 border-white cursor-pointer w-35 h-35' src='https://www.creativehatti.com/wp-content/uploads/edd/2023/11/Haryanvi-man-holding-money-in-both-hands-Large.jpg' /></div>
+                                </div>
 
                                 <div className='mt-10 relative px-8 py-2'>
                                     {userData?._id === ownData?._id && <div className="absolute cursor-pointer top-0 right-3 z-20 w-[35px] flex justify-center items-center h-[35px] rounded-full p-3 bg-white" onClick={handleInfoModal} ><EditIcon /> </div>}
@@ -221,9 +223,25 @@ const Profile = () => {
                                         <div className="text-md text-blue-800 w-fit cursor-pointer hover:underline">{userData?.friends?.length} Connections</div>
 
                                         <div className=' md:flex w-full justify-between'>
-                                            {/* 
-                        Please Watch the video for full code
-                    */}
+                                            <div className='my-5 flex gap-5'>
+                                                <div className="cursor-pointer p-2 border rounded-lg bg-blue-800 text-white font-semibold">
+                                                    Open to
+                                                </div>
+                                                <div className="cursor-pointer p-2 border rounded-lg bg-blue-800 text-white font-semibold">
+                                                    Share
+                                                </div>
+                                                <div className="cursor-pointer p-2 border rounded-lg bg-blue-800 text-white font-semibold">
+                                                    LogOut
+                                                </div>
+                                            </div>
+                                            <div className='my-5 flex gap-5'>
+                                                <div className="cursor-pointer p-2 border rounded-lg bg-blue-800 text-white font-semibold">
+                                                    Message
+                                                </div>
+                                                <div className="cursor-pointer p-2 border rounded-lg bg-blue-800 text-white font-semibold">
+                                                    Connect
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -251,12 +269,11 @@ const Profile = () => {
                             </div>
                             <div className='text-gray-700 text-md my-2 w-full flex gap-4 flex-wrap'>
 
-                                {/* 
-                        Please Watch the video for full code
-                    */}
-
-
-
+                                <div className='py-2 px-3 cursor-pointer bg-blue-800 text-white rounded-lg'>React JS</div>
+                                <div className='py-2 px-3 cursor-pointer bg-blue-800 text-white rounded-lg'>Node JS</div>
+                                <div className='py-2 px-3 cursor-pointer bg-blue-800 text-white rounded-lg'>Express JS</div>
+                                <div className='py-2 px-3 cursor-pointer bg-blue-800 text-white rounded-lg'>MongoDB JS</div>
+                                <div className='py-2 px-3 cursor-pointer bg-blue-800 text-white rounded-lg'>JavaScript</div>
                             </div>
                         </Card>
                     </div>
@@ -271,11 +288,17 @@ const Profile = () => {
                             {/* Parent div for scrollable activities  */}
                             <div className="overflow-x-auto my-2 flex gap-1 overflow-y-hidden w-full">
 
-                                {/* 
-                        Please Watch the video for full code
-                    */}
+                                <Link to={`/profile/${id}/activities/111`} className='cursor-pointer shrink-0 w-[350px] h-[560px]'>
+                                    <Post profile={1} />
+                                </Link>
 
+                                <Link to={`/profile/${id}/activities/112`} className='cursor-pointer shrink-0 w-[350px] h-[560px]'>
+                                    <Post profile={1} />
+                                </Link>
 
+                                <Link to={`/profile/${id}/activities/113`} className='cursor-pointer shrink-0 w-[350px] h-[560px]'>
+                                    <Post profile={1} />
+                                </Link>
 
 
                             </div>
@@ -291,9 +314,10 @@ const Profile = () => {
 
                     <div className='mt-5'>
                         <Card padding={1}>
-                            {/* 
-                        Please Watch the video for full code
-                    */}
+                            <div className='flex justify-between items-center'>
+                                <div className='text-xl'>Experience</div>
+                                <div className='cursor-pointer'><AddIcon /></div>
+                            </div>
 
                             <div className='mt-5 '>
 
@@ -301,9 +325,12 @@ const Profile = () => {
                                     userData?.experience.map((item, index) => {
                                         return (
                                             <div className='p-2 border-t-1 border-gray-300 flex justify-between'>
-                                                {/* 
-                        Please Watch the video for full code
-                    */}
+                                                <div>
+                                                    <div className="text-lg">DSE Engineer | Full Stack Engineer</div>
+                                                    <div className="text-sm">Amazon</div>
+                                                    <div className="text-sm text-gray-500">March 2022 - Present</div>
+                                                    <div className="text-sm text-gray-500">Delhi, India</div>
+                                                </div>
                                                 {
                                                     userData?._id === ownData?._id && <div onClick={() => { updateExpEdit(item._id, item) }} className='cursor-pointer'><EditIcon /></div>
                                                 }

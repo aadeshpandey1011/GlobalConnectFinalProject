@@ -36,12 +36,23 @@ const AddModal = (props) => {
         } catch (err) {
             console.log(err)
         }
-    }
+    } 
     return (
         <div className=''>
-            {/* 
-                        Please Watch the video for full code
-                    */}
+            <div className="flex gap-4 items-center">
+  <div className="relative">
+    <img className='w-15 h-15 rounded-full' alt="Img" src="http://res.cloudinary.com/dbraoytbj/image/upload/v1747213557/xwyq1qwjsythq3dmroo.png" />
+  </div>
+  <div className="text-2xl">DUSHYANT KUMAR</div>
+</div>
+
+<div>
+  <textarea cols={50} rows={5} placeholder="What do you want to talk about?" className="my-3 outline-0 text-xl p-2"></textarea>
+</div>
+
+<div>
+  <img className="w-20 h-20 rounded-xl" src="https://www.goodfreephotos.com/albums/bolivia/other-bolivia/mountains-and-lake-landscape-scenic.jpg" />
+</div>
 
             <div className='flex justify-between items-center'>
                 <div className="my-6">

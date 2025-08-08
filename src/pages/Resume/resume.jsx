@@ -15,9 +15,11 @@ const Resume = () => {
         <img className='w-full h-full rounded-lg' src={userData?.resume} />
       </div>
       <div className='w-[26%] py-5 hidden md:block'>
-        {/* 
-                        Please Watch the video for full code
-                    */}
+        <div className='sticky top-19'>
+                         <Advertisement />
+        </div>
+
+                    
       </div>
     </div>
   )

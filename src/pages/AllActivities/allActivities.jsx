@@ -10,8 +10,9 @@ const AllActivities = () => {
 
   const { id } = useParams();
 
-  const [post, setPosts] = useState([])
-  const [ownData, setOwnData] = useState(null)
+  console.log(id)
+  // const [post, setPosts] = useState([])
+  // const [ownData, setOwnData] = useState(null)
 
   const fetchDataOnLoad = async () => {
     {/* 
@@ -44,9 +45,18 @@ const AllActivities = () => {
 
         <div>
           <Card padding={1} >
-            {/* 
-                        Please Watch the video for full code
-                    */}
+            <div className='text-xl'>All Activity</div>
+            <div className='cursor-pointer w-fit p-2 border-1 rounded-4xl bg-green-800 my-2 text-white font-semibold'>Posts</div>
+
+            <div className='my-2 flex flex-col gap-2'>
+              <div>
+                <Post/>
+              </div>
+              <div>
+                <Post/>
+              </div>
+
+            </div>
           </Card>
         </div>
 

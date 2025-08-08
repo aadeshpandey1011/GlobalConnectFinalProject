@@ -10,7 +10,7 @@ const SingleActivity = () => {
 
     const { id, postId } = useParams();
 
-    const [post,setPost] = useState(null)
+    const [post, setPost] = useState(null)
     const [ownData, setOwnData] = useState(null);
 
 
@@ -28,21 +28,19 @@ const SingleActivity = () => {
         <div className='px-5 xl:px-50 py-9 flex gap-5 w-full mt-5 bg-gray-100'>
             {/* left side */}
             <div className='w-[21%] sm:block sm:w-[23%] hidden py-5'>
-                {/* 
-                        Please Watch the video for full code
-                    */}
+                <div className='h-fit'>
+                    <ProfileCard />
+                </div>
 
 
 
             </div>
 
             {/* middle side */}
-            <div className='w-[100%] py-5 sm:w-[50%] '>
-                    
-                    {/* 
-                        Please Watch the video for full code
-                    */}
-                
+            <div className='w-[100%] py-5 sm:w-[50%] '>      
+                        <div>
+                            <Post />
+                        </div>    
             </div>
 
             {/* right side */}
@@ -50,9 +48,9 @@ const SingleActivity = () => {
 
 
 
-                {/* 
-                        Please Watch the video for full code
-                    */}
+                <div className='my-5 sticky top-19'>
+                    <Advertisement />
+                </div>
 
             </div>
 
