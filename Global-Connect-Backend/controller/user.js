@@ -255,3 +255,69 @@ exports.acceptFriendRequest = async (req, res) => {
         res.status(500).json({ error: 'Server error', message: err.message });
     }
 }
+
+
+exports.getFriendsList = async (req, res) => {
+    try {
+        let friendsList = await req.user.populate('friends');
+        return res.status(200).json({
+            friends:friendsList.friends
+        })
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Server error', message: err.message });
+    }
+}
+
+
+exports.removeFromFriend = async (req, res) => {
+    try {
+        let selfId = req.user._id;
+        let { friendId } = req.params;
+        const friendData =await User.findById(friendId)
+        if(!friendData){
+            return res.status(400).json({
+                error:"No such User Exist"
+            })
+        }
+        const index =req.user.friends.findIndex(id=>id.equals(friendId))
+        const friendIndex=friendData.friends.findIndex(id=>id.equals(selfId))
+        if (index !== -1) {
+            req.user.friends.splice(index, 1);
+        } else {
+            return res.status(400).json({
+                error: "No any request from such user"
+            })
+        }
+        if (friendId !== -1) {
+            friendData.friends.splice(friendIndex, 1);
+        } else {
+            return res.status(400).json({
+                error: "No any request from such user"
+            })
+        }
+
+        await req.user.save();
+        await friendData.save();
+        return res.status(200).json({
+            message: "You both are disconnected now."
+        })
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Server error', message: err.message });
+    }
+}
+
+
+
+exports.getPendingFriendList = async (req, res) => {
+    try {
+        let pendingFriendsList = await req.user.populate('pending_friends');
+        return res.status(200).json({
+            pendingFriends:pendingFriendsList.pending_friends
+        })
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Server error', message: err.message });
+    }
+}
