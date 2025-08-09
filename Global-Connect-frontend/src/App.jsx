@@ -18,11 +18,12 @@ import SingleActivity from './pages/SingleActivity/singleActivity'
 import Notification from './pages/Notification/notification'
 
 
-
+import axios from 'axios'
 
 function App() {
   const [isLogin,setIsLogin] = useState(localStorage.getItem('isLogin'))
 
+  
   const changeLoginValue = (val)=>{
     setIsLogin(val)
   }

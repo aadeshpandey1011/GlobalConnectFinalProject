@@ -21,7 +21,10 @@ const SignUp = (props) => {
 
         await axios.post('http://localhost:4000/api/auth/register',registerField).then(res=>{
 
-            // please watch video for full code
+            toast.success("You have registered successfully");
+            setRegisterField({...registerField,email: "",password: "",f_name: ""});
+            navigate('/login');
+
             
         }).catch(err=>{
             console.log(err)
@@ -42,13 +45,13 @@ const SignUp = (props) => {
 
                    <div>
                         <label htmlFor="password">Password</label>
-                        <input value={registerField.email} onChange={(e)=>handleInputField(e,'email')} type="password" className="w-full text-xl border-2 rounded-lg px-5 py-1" placeholder="password " />
+                        <input value={registerField.password} onChange={(e)=>handleInputField(e,'password')} type="password" className="w-full text-xl border-2 rounded-lg px-5 py-1" placeholder="password " />
                     </div>
                     <div>
                         <label htmlFor="full_name">Full Name</label>
-                        <input value={registerField.email} onChange={(e)=>handleInputField(e,'email')} type="text" className="w-full text-xl border-2 rounded-lg px-5 py-1" placeholder="Full name" />
+                        <input value={registerField.f_name} onChange={(e)=>handleInputField(e,'f_name')} type="text" className="w-full text-xl border-2 rounded-lg px-5 py-1" placeholder="Full name" />
                     </div>
-                    <div className="w-full hover:bg-red-500 bg-red-400 text-white py-3 rounded-xl text-center text-xl cursor-pointer my-2">
+                    <div onClick={handleRegister} className="w-full hover:bg-red-500 bg-red-400 text-white py-3 rounded-xl text-center text-xl cursor-pointer my-2">
                         Register
                     </div>
                     
@@ -57,7 +60,7 @@ const SignUp = (props) => {
                 <div className="flex items-center gap-2">
                     <div className="border-b-1 border-gray-400 w-[45%]" /> <div>or</div><div className="border-b-1 border-gray-400 w-[45%] my-6" />
                 </div>
-
+                 <GoogleLoginComp changeLoginValue={props.changeLoginValue}/>
             </div>
 
             <div className="mt-4 mb-10">Already on G.Connect? <Link to={'/login'} className="text-red-400 cursor-pointer">Sign in</Link></div>

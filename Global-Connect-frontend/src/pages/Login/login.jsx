@@ -18,9 +18,11 @@ const Login = (props) => {
             return toast.error("Please fill all credentials")
         }
         await axios.post('http://localhost:4000/api/auth/login',loginField,{withCredentials:true}).then((res) => {
-            {/* 
-                        Please Watch the video for full code
-                    */}
+           props.changeLoginValue(true);
+           localStorage.setItem('isLogin', 'true');
+           localStorage.setItem("userInfo", JSON.stringify(res.data.userExist));
+           navigate('/feeds');
+
         }).catch(err => {
             console.log(err)
             toast.error(err?.response?.data?.error)
@@ -39,9 +41,28 @@ const Login = (props) => {
                 </div>
 
                 <div className='flex flex-col gap-4'>
-                    {/* 
-                        Please Watch the video for full code
-                    */}
+                    <div>
+                        <label htmlFor="email">Email</label>
+                        <input
+                            type="text"
+                            value={loginField.email}
+                            onChange={(e) => onChangeInput(e, 'email')}
+                            className="w-full text-xl border-2 rounded-lg px-5 py-1"
+                            placeholder="Email "
+                        />
+                    </div>
+
+                <div>
+                    <label htmlFor="password">Password</label>
+                    <input
+                        type="password"
+                        value={loginField.password}
+                        onChange={(e) => onChangeInput(e, 'password')}
+                        className="w-full text-xl border-2 rounded-lg px-5 py-1"
+                        placeholder="Password "
+                    />
+                </div>
+
 
 
 
