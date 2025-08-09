@@ -74,7 +74,7 @@ exports.loginThroghGmail = async (req, res) => {
         const payload = ticket.getPayload();
 
         const { sub, email, name, picture } = payload;
-        const userExist =await User.findOne({email});
+        let userExist =await User.findOne({email});
         if(!userExist){
             //Register User
             userExist = await User.create({
