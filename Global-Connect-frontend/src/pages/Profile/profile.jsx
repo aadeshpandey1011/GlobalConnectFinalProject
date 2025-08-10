@@ -175,9 +175,11 @@ const Profile = () => {
             })
         } else {
             await axios.delete(`http://localhost:4000/api/auth/removeFromFriendList/${userData?._id}`, { withCredentials: true }).then(res => {
-                {/* 
-                        Please Watch the video for full code
-                    */}
+                toast.success(res.data.message);
+                setTimeout(()=>{
+                    window.location.reload();
+                },2000)
+
             }).catch(err => {
                 console.log(err);
                 toast.error(err?.response?.data?.error)
@@ -259,6 +261,7 @@ const Profile = () => {
                                                 {
                                                 userData?._id === ownData?._id ? null : <div onClick={handleSendFriendRequest} className="cursor-pointer p-2 border rounded-lg bg-blue-800 text-white font-semibold">
                                                     {checkFriendStatus()}
+                                                    
                                                 </div>
                                                 }
                                             </div>
