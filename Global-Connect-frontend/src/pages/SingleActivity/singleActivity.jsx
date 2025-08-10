@@ -15,7 +15,14 @@ const SingleActivity = () => {
 
 
     const fetchDataOnLoad = async () => {
-        // Please Watch the video for full code
+        await axios.get(`http://localhost:4000/api/post/getPostById/${postId}`).then(res => {
+            console.log(res)
+            setPost(res.data.post)
+        }).catch(err => {
+            console.log(err)
+            alert(err?.response?.data?.error)
+        })
+
     }
 
     useEffect(() => {
@@ -29,7 +36,7 @@ const SingleActivity = () => {
             {/* left side */}
             <div className='w-[21%] sm:block sm:w-[23%] hidden py-5'>
                 <div className='h-fit'>
-                    <ProfileCard />
+                    <ProfileCard data={post?.user}/>
                 </div>
 
 
@@ -37,10 +44,10 @@ const SingleActivity = () => {
             </div>
 
             {/* middle side */}
-            <div className='w-[100%] py-5 sm:w-[50%] '>      
-                        <div>
-                            <Post />
-                        </div>    
+            <div className='w-[100%] py-5 sm:w-[50%] '>
+                <div>
+                    <Post item={post} personalData={ownData}/>
+                </div>
             </div>
 
             {/* right side */}

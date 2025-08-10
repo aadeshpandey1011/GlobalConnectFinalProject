@@ -15,9 +15,14 @@ const AllActivities = () => {
   // const [ownData, setOwnData] = useState(null)
 
   const fetchDataOnLoad = async () => {
-    {/* 
-                        Please Watch the video for full code
-                    */}
+    await axios.get(`http://localhost:4000/api/post/getAllPostForUser/${id}`).then(res => {
+    console.log(res)
+    setPosts(res.data.posts)
+    }).catch(err => {
+        console.log(err)
+        alert(err?.response?.data?.error)
+    })
+
   }
 
 
@@ -49,12 +54,16 @@ const AllActivities = () => {
             <div className='cursor-pointer w-fit p-2 border-1 rounded-4xl bg-green-800 my-2 text-white font-semibold'>Posts</div>
 
             <div className='my-2 flex flex-col gap-2'>
-              <div>
-                <Post/>
-              </div>
-              <div>
-                <Post/>
-              </div>
+              {
+                post.map((item, index) => {
+                    return (
+                        <div key={index}>
+                            <Post item={item} personalData={ownData}/>
+                        </div>
+                    )
+                })
+
+              }
 
             </div>
           </Card>

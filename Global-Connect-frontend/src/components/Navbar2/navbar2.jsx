@@ -39,9 +39,15 @@ const Navbar2 = () => {
 
 
     const searchAPICall = async () => {
-        {/* 
-                        Please Watch the video for full code
-                    */}
+        await axios.get(`http://localhost:4000/api/auth/findUser?query=${debouncedTerm}`, { withCredentials: true }).then(res => {
+            console.log(res)
+
+            setSearchUser(res.data.users)
+        }).catch(err => {
+            console.log(err)
+            alert(err?.response?.data?.error)
+        })
+
     }
 
     const fetchNotification = async () => {
@@ -76,9 +82,11 @@ const Navbar2 = () => {
                             {
                                 searchUser.map((item, index) => {
                                     return (
-                                        {/* 
-                        Please Watch the video for full code
-                    */}
+                                        <Link to={`/profile/${item?._id}`} key={index} className='flex gap-2 mb-1 items-center cursor-pointer' onClick={() => setSearchTerm("")}>
+                                            <div><img className='w-10 h-10 rounded-full' src={item?.profilePic} /></div>
+                                            <div>{item?.f_name}</div>
+                                        </Link>
+
                                     );
                                 })
                             }
