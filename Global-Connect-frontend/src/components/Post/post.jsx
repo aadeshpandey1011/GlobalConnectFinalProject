@@ -182,9 +182,14 @@ const Post = ({ profile, item, key, personalData }) => {
         e.preventDefault();
         if (commentText.trim().length === 0) return toast.error("Please enter comment");
 
-        {/* 
-                        Please Watch the video for full code
-                    */}
+        await axios.post(`http://localhost:4000/api/comment`, { postId: item?._id, comment: commentText },
+             { withCredentials: true }).then((res) => {
+            setComments([res.data.comment, ...comments]);
+        }).catch(err => {
+            console.log(err)
+            alert('Something Went Wrong')
+        })
+
     }
 
     useEffect(() => {
@@ -201,9 +206,14 @@ const Post = ({ profile, item, key, personalData }) => {
 
     const handleLikeFunc = async () => {
         await axios.post('http://localhost:4000/api/post/likeDislike', { postId: item?._id }, { withCredentials: true }).then(res => {
-            {/* 
-                        Please Watch the video for full code
-                    */}
+            if (liked) {
+                setNoOfLike((prev) => prev - 1);
+                setLiked(false);
+            } else {
+                setLiked(true);
+                setNoOfLike((prev) => prev + 1);
+            }
+
         }).catch(err => {
             console.log(err)
             alert('Something Went Wrong')
@@ -241,15 +251,23 @@ const Post = ({ profile, item, key, personalData }) => {
                     <img className='rounded-4xl w-12 h-12 border-2 border-white cursor-pointer' src={item?.user?.profilePic} />
                 </Link>
                 <div>
-                    <div className="text-lg font-semibold">Dummy User</div>
-                    <div className="text-xs text-gray-500">SDE-II Eng. @Amazon</div>
+                    <div className="text-lg font-semibold">
+                        {item?.user?.f_name}
+                    </div>
+
+                    <div className="text-xs text-gray-500">
+                        {item?.user?.headline}
+                    </div>
+
                 </div>
             </div>
 
 
-            <div className='text-md p-4 my-3 whitespace-pre-line flex-grow'>
-                {seeMore ? desc : desc?.length > 50 ? `${desc.slice(0, 50)}...` : `${desc}`} {desc?.length < 50 ? null : <span onClick={() => setSeeMore(prev => !prev)} className="cursor-pointer text-gray-500">{seeMore ? "See Less" : 'See More'}</span>}
-            </div>
+            {
+                desc.length > 0 && <div className='text-md p-4 my-3 whitespace-pre-line flex-grow'>
+                    {seeMore ? desc : desc?.length > 50 ? `${desc.slice(0, 50)}...` : `${desc}`} {desc?.length < 50 ? null : <span onClick={() => setSeeMore(prev => !prev)} className="cursor-pointer text-gray-500">{seeMore ? "See Less" : 'See More'}</span>}
+                </div>
+            }
 
 
             {
@@ -261,10 +279,10 @@ const Post = ({ profile, item, key, personalData }) => {
             <div className='my-2 p-4 flex justify-between items-center'>
                 <div className='flex gap-1 items-center'>
                     <ThumbUpIcon sx={{ color: "blue", fontSize: 12 }} />
-                    <div className='text-sm text-gray-600'>1 Likes</div>
+                    <div className='text-sm text-gray-600'>{item?.likes.length} Likes</div>
                 </div>
                 <div className='flex gap-1 items-center'>
-                    <div className='text-sm text-gray-600'>2 Comments</div>
+                    <div className='text-sm text-gray-600'>{item?.comments} Comments</div>
                 </div>
             </div>
 
@@ -297,9 +315,10 @@ const Post = ({ profile, item, key, personalData }) => {
                                 return (
                                     <div className='my-4'>
                                         <Link to={`/profile/${item?.user?._id}`} className='flex gap-3'>
-                                                <div className='cursor-pointer'>
-                                                <div className="text-md">Dummy User</div>
-                                                <div className="text-sm text-gray-500">@Amazon SDE-II</div>
+                                            <div className='cursor-pointer'>
+                                                <div className="text-md">{item?.user?.f_name}</div>
+                                                <div className="text-sm text-gray-500">{item?.user?.headline}</div>
+
                                             </div>
                                         </Link>
 

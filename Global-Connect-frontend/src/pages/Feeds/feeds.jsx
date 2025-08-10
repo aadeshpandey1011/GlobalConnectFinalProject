@@ -34,9 +34,11 @@ const Feeds = () => {
         await axios.get('http://localhost:4000/api/auth/self', { withCredentials: true }),
         await axios.get('http://localhost:4000/api/post/getAllPost')
       ]);
-      {/* 
-                        Please Watch the video for full code
-                    */}
+      
+      setPersonalData(selfData.data.user)  
+      localStorage.setItem('userInfo', JSON.stringify(userData.data.user));  
+      setPost(postData.data.posts)
+
 
     } catch (err) {
       console.log(err)

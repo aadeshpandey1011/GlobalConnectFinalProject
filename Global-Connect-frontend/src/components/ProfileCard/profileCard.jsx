@@ -41,10 +41,11 @@ const ProfileCard = (props) => {
                 </div>
             </Link>
             <div className='p-5'>
-               <div className="text-xl">Aadesh Pandey</div>
-                <div className="text-sm my-1">@Amazon Software Eng</div>
-                <div className="text-sm my-1">Delhi, India</div>
-                <div className="text-sm my-1">Amazon</div>
+                <div className="text-xl">{props?.data?.f_name}</div>      
+                <div className="text-sm my-1">{props?.data?.headline}</div> 
+                <div className="text-sm my-1">{props?.data?.curr_location}</div> 
+                <div className="text-sm my-1">{props?.data?.curr_company}</div>  
+
             </div>
         </Card>
     )
