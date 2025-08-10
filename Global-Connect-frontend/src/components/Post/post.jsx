@@ -183,12 +183,12 @@ const Post = ({ profile, item, key, personalData }) => {
         if (commentText.trim().length === 0) return toast.error("Please enter comment");
 
         await axios.post(`http://localhost:4000/api/comment`, { postId: item?._id, comment: commentText },
-             { withCredentials: true }).then((res) => {
-            setComments([res.data.comment, ...comments]);
-        }).catch(err => {
-            console.log(err)
-            alert('Something Went Wrong')
-        })
+            { withCredentials: true }).then((res) => {
+                setComments([res.data.comment, ...comments]);
+            }).catch(err => {
+                console.log(err)
+                alert('Something Went Wrong')
+            })
 
     }
 
@@ -231,23 +231,23 @@ const Post = ({ profile, item, key, personalData }) => {
         })
     }
 
-    const copyToClipboard = async () => {
+    const copyToClipboard = async (postId) => {
         try {
-            let string = `http://localhost:5173/profile/${item?.user?._id}/activities/${item?._id}`
-            {/* 
-                        Please Watch the video for full code
-                    */}
+            let string = `http://localhost:5173/profile/${item?.user?._id}/activities/${postId}`
+            await navigator.clipboard.writeText(string);
+            toast.success('Copied to clipboard!');
         } catch (err) {
             console.error('Failed to copy!', err);
         }
     };
 
 
+
     const desc = item?.desc;
     return (
         <Card padding={0}>
             <div className='flex gap-3 p-4'>
-                
+
                 <Link to={`/profile/${item?.user?._id}`} className='w-12 h-12 rounded-4xl'>
                     <img className='rounded-4xl w-12 h-12 border-2 border-white cursor-pointer' src={item?.user?.profilePic} />
                 </Link>
@@ -263,17 +263,17 @@ const Post = ({ profile, item, key, personalData }) => {
                 </div>
             </div>
 
-{/* change +++++ */}
+            {/* change +++++ */}
             {/* {
                 desc.length > 0 && <div className='text-md p-4 my-3 whitespace-pre-line flex-grow'>
                     {seeMore ? desc : desc?.length > 50 ? `${desc.slice(0, 50)}...` : `${desc}`} {desc?.length < 50 ? null : <span onClick={() => setSeeMore(prev => !prev)} className="cursor-pointer text-gray-500">{seeMore ? "See Less" : 'See More'}</span>}
                 </div>
             } */}
-            
-                <div className='text-md p-4 my-3 whitespace-pre-line flex-grow'>
-                    {seeMore ? desc : desc?.length > 50 ? `${desc.slice(0, 50)}...` : `${desc}`} {desc?.length < 50 ? null : <span onClick={() => setSeeMore(prev => !prev)} className="cursor-pointer text-gray-500">{seeMore ? "See Less" : 'See More'}</span>}
-                </div>
-            
+
+            <div className='text-md p-4 my-3 whitespace-pre-line flex-grow'>
+                {seeMore ? desc : desc?.length > 50 ? `${desc.slice(0, 50)}...` : `${desc}`} {desc?.length < 50 ? null : <span onClick={() => setSeeMore(prev => !prev)} className="cursor-pointer text-gray-500">{seeMore ? "See Less" : 'See More'}</span>}
+            </div>
+
 
 
             {
