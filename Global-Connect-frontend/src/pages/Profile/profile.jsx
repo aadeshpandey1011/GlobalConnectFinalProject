@@ -57,9 +57,9 @@ const Profile = () => {
                 axios.get('http://localhost:4000/api/auth/self', { withCredentials: true })
             ]);
 
-            {/* 
-                        Please Watch the video for full code
-                    */}
+            setUserData(userDatas.data.user);
+            setPostData(postDatas.data.posts);
+            setOwnData(ownDatas.data.user);
             localStorage.setItem('userInfo', JSON.stringify(ownDatas.data.user));
 
 
@@ -111,9 +111,7 @@ const Profile = () => {
 
     const handleEditFunc = async (data) => {
         await axios.put(`http://localhost:4000/api/auth/update`, { user: data }, { withCredentials: true }).then(res => {
-            {/* 
-                        Please Watch the video for full code
-                    */}
+            window.location.reload();
         }).catch(err => {
             console.log(err)
             alert("Something Went Wrong")
@@ -210,8 +208,10 @@ const Profile = () => {
                             <div className='w-full h-fit '>
                                 <div className='w-full h-[200px] relative'>
                                     <div className='absolute cursor-pointer top-3 right-3 z-20 w-[35px] flex justify-center items-center h-[35px] rounded-full p-3 bg-white' onClick={handleOnEditCover}><EditIcon /></div>
-                                    <img src='https://thumbs.dreamstime.com/z/idyllic-summer-landscape-clear-mountain-lake-alps-45054687.jpg?ct=jpeg' className='w-full h-[200px] rounded-tr-lg rounded-tl-lg ' />
-                                    <div onClick={handleCircularimageOpen} className='absolute object-cover top-24 left-6 z-10'><img className='rounded-full border=2 border-white cursor-pointer w-35 h-35' src='https://www.creativehatti.com/wp-content/uploads/edd/2023/11/Haryanvi-man-holding-money-in-both-hands-Large.jpg' /></div>
+                                    {/* <img src='https://thumbs.dreamstime.com/z/idyllic-summer-landscape-clear-mountain-lake-alps-45054687.jpg?ct=jpeg' className='w-full h-[200px] rounded-tr-lg rounded-tl-lg ' /> */}
+                                    <img src={userData?.cover_pic} className='w-full h-[200px] rounded-tr-lg rounded-tl-lg ' />
+                                    {/* <div onClick={handleCircularimageOpen} className='absolute object-cover top-24 left-6 z-10'><img className='rounded-full border=2 border-white cursor-pointer w-35 h-35' src='https://www.creativehatti.com/wp-content/uploads/edd/2023/11/Haryanvi-man-holding-money-in-both-hands-Large.jpg' /></div> */}
+                                    <div onClick={handleCircularimageOpen} className='absolute object-cover top-24 left-6 z-10'><img className='rounded-full border=2 border-white cursor-pointer w-35 h-35' src={userData?.profilePic} /></div>
                                 </div>
 
                                 <div className='mt-10 relative px-8 py-2'>
@@ -269,11 +269,18 @@ const Profile = () => {
                             </div>
                             <div className='text-gray-700 text-md my-2 w-full flex gap-4 flex-wrap'>
 
-                                <div className='py-2 px-3 cursor-pointer bg-blue-800 text-white rounded-lg'>React JS</div>
+                                {/* <div className='py-2 px-3 cursor-pointer bg-blue-800 text-white rounded-lg'>React JS</div>
                                 <div className='py-2 px-3 cursor-pointer bg-blue-800 text-white rounded-lg'>Node JS</div>
                                 <div className='py-2 px-3 cursor-pointer bg-blue-800 text-white rounded-lg'>Express JS</div>
                                 <div className='py-2 px-3 cursor-pointer bg-blue-800 text-white rounded-lg'>MongoDB JS</div>
-                                <div className='py-2 px-3 cursor-pointer bg-blue-800 text-white rounded-lg'>JavaScript</div>
+                                <div className='py-2 px-3 cursor-pointer bg-blue-800 text-white rounded-lg'>JavaScript</div> */}
+                                {
+                                    userData?.skills?.map((item,index)=>{
+                                        return(
+                                            <div key={index} className='py-2 px-3 cursor-pointer bg-blue-800 text-white rounded-lg'>{item}</div>
+                                        )
+                                    })
+                                }
                             </div>
                         </Card>
                     </div>
@@ -288,17 +295,25 @@ const Profile = () => {
                             {/* Parent div for scrollable activities  */}
                             <div className="overflow-x-auto my-2 flex gap-1 overflow-y-hidden w-full">
 
-                                <Link to={`/profile/${id}/activities/111`} className='cursor-pointer shrink-0 w-[350px] h-[560px]'>
+                                {/* <Link to={`/profile/${id}/activities/111`} className='cursor-pointer shrink-0 w-[350px] h-[560px]'>
                                     <Post profile={1} />
                                 </Link>
-
                                 <Link to={`/profile/${id}/activities/112`} className='cursor-pointer shrink-0 w-[350px] h-[560px]'>
                                     <Post profile={1} />
                                 </Link>
-
                                 <Link to={`/profile/${id}/activities/113`} className='cursor-pointer shrink-0 w-[350px] h-[560px]'>
                                     <Post profile={1} />
-                                </Link>
+                                </Link> */}
+
+                                {
+                                    postData.map((item,ind)=>{
+                                        return (
+                                            <Link to={`/profile/${id}/activities/111`} className='cursor-pointer shrink-0 w-[350px] h-[560px]'>
+                                                <Post profile={1} item={item} personalData={ownData} />
+                                            </Link>
+                                        )
+                                    })
+                                }
 
 
                             </div>
@@ -326,10 +341,10 @@ const Profile = () => {
                                         return (
                                             <div className='p-2 border-t-1 border-gray-300 flex justify-between'>
                                                 <div>
-                                                    <div className="text-lg">DSE Engineer | Full Stack Engineer</div>
-                                                    <div className="text-sm">Amazon</div>
-                                                    <div className="text-sm text-gray-500">March 2022 - Present</div>
-                                                    <div className="text-sm text-gray-500">Delhi, India</div>
+                                                    <div className="text-lg">{item.designation}</div>
+                                                    <div className="text-sm">{item.company_name}</div>
+                                                    <div className="text-sm text-gray-500">{item.duration}</div>
+                                                    <div className="text-sm text-gray-500">{item.location} </div>
                                                 </div>
                                                 {
                                                     userData?._id === ownData?._id && <div onClick={() => { updateExpEdit(item._id, item) }} className='cursor-pointer'><EditIcon /></div>

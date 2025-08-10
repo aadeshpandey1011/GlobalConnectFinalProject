@@ -11,9 +11,22 @@ const ImageModal = ({ isCircular, selfData, handleEditFunc }) => {
     const [loading, setLoading] = useState(false)
 
     const handleInputImage = async (e) => {
-        {/* 
-                        Please Watch the video for full code
-                    */}
+        const files = e.target.files;
+        const data = new FormData();
+        data.append('file', files[0]);
+        
+        data.append('upload_preset', 'GlobalConnect');
+        setLoading(true)
+        try {
+            const response = await axios.post("https://api.cloudinary.com/v1_1/dxpjl64r4/image/upload", data)
+
+            const imageUrl = response.data.url;
+            setImageLink(imageUrl)
+        } catch (err) {
+            console.log(err)
+        }finally{
+            setLoading(false)
+        }
     }
 
 

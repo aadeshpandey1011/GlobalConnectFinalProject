@@ -108,12 +108,12 @@ const AboutModal = ({ handleEditFunc, selfData }) => {
            <div className='w-full mb-4'>
              <label>About*</label>
              <br />
-             <textarea className='p-2 mt-1 w-full border-1 rounded-md' cols={10} rows={3}></textarea>
+             <textarea value={data.about} onChange={(e)=>{onChangeHandle(e,'about')}} className='p-2 mt-1 w-full border-1 rounded-md' cols={10} rows={3}></textarea>
             </div>
            <div className='w-full mb-4'>
              <label>Skills*(Add by seperating comma)</label>
              <br />
-             <textarea className='p-2 mt-1 w-full border-1 rounded-md' cols={10} rows={3}></textarea>
+             <textarea value={data.skillInp} onChange={(e)=>{onChangeHandle(e,'skillInp')}} className='p-2 mt-1 w-full border-1 rounded-md' cols={10} rows={3}></textarea>
             </div>
             <div className='w-full mb-4'>
                 <label htmlFor='resumeUpload' className='p-2 bg-blue-800 text-white rounded-lg cursor-pointer'>Resume Upload</label>

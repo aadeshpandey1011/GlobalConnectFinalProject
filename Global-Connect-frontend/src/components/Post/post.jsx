@@ -247,6 +247,7 @@ const Post = ({ profile, item, key, personalData }) => {
     return (
         <Card padding={0}>
             <div className='flex gap-3 p-4'>
+                
                 <Link to={`/profile/${item?.user?._id}`} className='w-12 h-12 rounded-4xl'>
                     <img className='rounded-4xl w-12 h-12 border-2 border-white cursor-pointer' src={item?.user?.profilePic} />
                 </Link>
@@ -262,12 +263,17 @@ const Post = ({ profile, item, key, personalData }) => {
                 </div>
             </div>
 
-
-            {
+{/* change +++++ */}
+            {/* {
                 desc.length > 0 && <div className='text-md p-4 my-3 whitespace-pre-line flex-grow'>
                     {seeMore ? desc : desc?.length > 50 ? `${desc.slice(0, 50)}...` : `${desc}`} {desc?.length < 50 ? null : <span onClick={() => setSeeMore(prev => !prev)} className="cursor-pointer text-gray-500">{seeMore ? "See Less" : 'See More'}</span>}
                 </div>
-            }
+            } */}
+            
+                <div className='text-md p-4 my-3 whitespace-pre-line flex-grow'>
+                    {seeMore ? desc : desc?.length > 50 ? `${desc.slice(0, 50)}...` : `${desc}`} {desc?.length < 50 ? null : <span onClick={() => setSeeMore(prev => !prev)} className="cursor-pointer text-gray-500">{seeMore ? "See Less" : 'See More'}</span>}
+                </div>
+            
 
 
             {

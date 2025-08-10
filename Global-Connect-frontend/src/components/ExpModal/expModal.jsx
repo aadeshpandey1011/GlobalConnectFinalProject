@@ -81,24 +81,24 @@ const ExpModal = ({ handleEditFunc, selfData, updateExp, setUpdateExp }) => {
     }
 
     const updateExpSave = ()=>{
-        {/* 
-                        Please Watch the video for full code
-                    */}
+        let newFilteredData = selfData?.experience.filter((item)=>item._id !==updateExp?.data?._id);
+        let newArr = [...newFilteredData, data];
+        let newData = { ...selfData, experience: newArr };
+        handleEditFunc(newData)
     }
 
     const handleOnSave = () => {
 
         if(updateExp?.clicked) return updateExpSave();
-
         let expArr = [...selfData?.experience, data];
         let newData = { ...selfData, experience: expArr };
         handleEditFunc(newData)
     }
 
     const handleOnDelete = ()=>{
-        {/* 
-                        Please Watch the video for full code
-                    */}
+        let newFilteredData = selfData?.experience.filter((item)=>item._id !==updateExp?.data?._id);
+        let newData = { ...selfData, experience: newFilteredData };
+        handleEditFunc(newData)
     }
 
 
@@ -117,12 +117,12 @@ const ExpModal = ({ handleEditFunc, selfData, updateExp, setUpdateExp }) => {
             <div className='w-full mb-4'>
                 <label>Duration*</label>
                 <br />
-                <input type='text' value={data.company_name} onChange={(e) => onChangeHandle(e, 'company_name')} className='p-2 mt-1 w-full border-1 rounded-md' placeholder='Enter Duration' />
+                <input type='text' value={data.duration} onChange={(e) => onChangeHandle(e, 'duration')} className='p-2 mt-1 w-full border-1 rounded-md' placeholder='Enter Duration' />
             </div>
             <div className='w-full mb-4'>
                 <label>Place*</label>
                 <br />
-                <input type='text' value={data.company_name} onChange={(e) => onChangeHandle(e, 'company_name')} className='p-2 mt-1 w-full border-1 rounded-md' placeholder='Enter Place' />
+                <input type='text' value={data.location} onChange={(e) => onChangeHandle(e, 'location')} className='p-2 mt-1 w-full border-1 rounded-md' placeholder='Enter Place' />
             </div>
             
             <div className='flex justify-between'>
