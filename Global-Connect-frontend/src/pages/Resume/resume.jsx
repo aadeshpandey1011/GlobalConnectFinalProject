@@ -16,7 +16,7 @@ const Resume = () => {
       </div>
       <div className='w-[26%] py-5 hidden md:block'>
         <div className='sticky top-19'>
-                         <Advertisement />
+          <Advertisement />
         </div>
 
                     

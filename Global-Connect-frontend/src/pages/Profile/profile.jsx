@@ -119,35 +119,44 @@ const Profile = () => {
 
     }
 
-    const amIfriend = () => {  // userData = Danish // ownData = shubham
+    const amIfriend = () => {  // userData = panish // ownData = shubham
         let arr = userData?.friends?.filter((item) => { return item === ownData?._id })
         return arr?.length;
     }
 
     const isInPendingList = () => {
-        {/* 
-                        Please Watch the video for full code
-                    */}
+       let arr = userData?.pending_friends?.filter((item) => { return item === ownData?._id })
+        return arr?.length;
     }
 
     const isInSelfPendingList = () => {
-        {/* 
-                        Please Watch the video for full code
-                    */}
+        let arr = userData?.pending_friends?.filter((item) => { return item === userData?._id })
+        return arr?.length;
     }
     const checkFriendStatus = () => {
-        {/* 
-                        Please Watch the video for full code
-                    */}
+        if(amIfriend()){
+            return "Disconnect";
+        }
+        else if(isInSelfPendingList()){
+            return "Approve Request"
+        }
+        else if(isInPendingList()){
+            return "Request Sent"
+        }
+        else{
+            return "Connect";
+        }
     }
     const handleSendFriendRequest = async () => {
         if (checkFriendStatus() === "Request Sent") return;
 
         if (checkFriendStatus() === "Connect") {
             await axios.post('http://localhost:4000/api/auth/sendFriendReq', { reciever: userData?._id }, { withCredentials: true }).then(res => {
-                {/* 
-                        Please Watch the video for full code
-                    */}
+                toast.success(res.data.message);
+                setTimeout(()=>{
+                    window.location.reload();
+                },2000)
+               
 
             }).catch(err => {
                 console.log(err);
@@ -155,9 +164,11 @@ const Profile = () => {
             })
         } else if (checkFriendStatus() === "Approve Request") {
             await axios.post('http://localhost:4000/api/auth/acceptFriendRequest', { friendId: userData?._id }, { withCredentials: true }).then(res => {
-                {/* 
-                        Please Watch the video for full code
-                    */}
+               toast.success(res.data.message);
+                setTimeout(()=>{
+                    window.location.reload();
+                },2000)
+               
             }).catch(err => {
                 console.log(err);
                 toast.error(err?.response?.data?.error)
@@ -176,9 +187,11 @@ const Profile = () => {
 
     const handleLogout = async () => {
         await axios.post('http://localhost:4000/api/auth/logout', {}, { withCredentials: true }).then(res => {
-            {/* 
-                        Please Watch the video for full code
-                    */}
+            toast.success(res.data.message);
+                setTimeout(()=>{
+                    window.location.reload();
+                },2000)
+               
         }).catch(err => {
             console.log(err);
             toast.error(err?.response?.data?.error)
@@ -230,17 +243,24 @@ const Profile = () => {
                                                 <div className="cursor-pointer p-2 border rounded-lg bg-blue-800 text-white font-semibold">
                                                     Share
                                                 </div>
-                                                <div className="cursor-pointer p-2 border rounded-lg bg-blue-800 text-white font-semibold">
+                                                {
+                                                    userData?._id===ownData?._id &&<div className="cursor-pointer p-2 border rounded-lg bg-blue-800 text-white font-semibold">
                                                     LogOut
                                                 </div>
+                                                }
+                                                
                                             </div>
                                             <div className='my-5 flex gap-5'>
-                                                <div className="cursor-pointer p-2 border rounded-lg bg-blue-800 text-white font-semibold">
+                                                {
+                                                  amIfriend() ? <div onClick={handleMessageModal} className="cursor-pointer p-2 border rounded-lg bg-blue-800 text-white font-semibold" >
                                                     Message
+                                                </div>:null
+                                                }
+                                                {
+                                                userData?._id === ownData?._id ? null : <div onClick={handleSendFriendRequest} className="cursor-pointer p-2 border rounded-lg bg-blue-800 text-white font-semibold">
+                                                    {checkFriendStatus()}
                                                 </div>
-                                                <div className="cursor-pointer p-2 border rounded-lg bg-blue-800 text-white font-semibold">
-                                                    Connect
-                                                </div>
+                                                }
                                             </div>
                                         </div>
                                     </div>
@@ -331,7 +351,10 @@ const Profile = () => {
                         <Card padding={1}>
                             <div className='flex justify-between items-center'>
                                 <div className='text-xl'>Experience</div>
-                                <div className='cursor-pointer'><AddIcon /></div>
+                                {
+                                    userData?._id===ownData?._id && <div onClick={handleExpModal} className='cursor-pointer'><AddIcon /></div>
+                                }
+                                
                             </div>
 
                             <div className='mt-5 '>

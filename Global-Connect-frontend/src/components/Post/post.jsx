@@ -320,7 +320,12 @@ const Post = ({ profile, item, key, personalData }) => {
                             comments.map((item, index) => {
                                 return (
                                     <div className='my-4'>
+                                        {/* if something went wrong part28 18minwatch */}
                                         <Link to={`/profile/${item?.user?._id}`} className='flex gap-3'>
+                                        
+                                        {/* ++++++++++ */}
+                                            <img src={item?.user?.profilePic} className='rounded-full w-10 h-10 border-white cursor-pointer' />
+
                                             <div className='cursor-pointer'>
                                                 <div className="text-md">{item?.user?.f_name}</div>
                                                 <div className="text-sm text-gray-500">{item?.user?.headline}</div>

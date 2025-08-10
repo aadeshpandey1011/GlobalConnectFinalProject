@@ -16,9 +16,9 @@ const MyNetwork = () => {
 
     const fetchFriendList = async () => {
         await axios.get('http://localhost:4000/api/auth/friendsList', { withCredentials: true }).then((res) => {
-            {/* 
-                        Please Watch the video for full code
-                    */}
+            console.log(res);
+            setData(res.data.friends)
+            
         }).catch(err => {
             console.log(err)
             alert("Something Went Wrong")
@@ -27,9 +27,8 @@ const MyNetwork = () => {
 
     const fetchPendingRequest = async () => {
         await axios.get('http://localhost:4000/api/auth/pendingFriendsList', { withCredentials: true }).then((res) => {
-            {/* 
-                        Please Watch the video for full code
-                    */}
+            console.log(res);
+            setData(res.data.pendingFriends)
         }).catch(err => {
             console.log(err)
             alert("Something Went Wrong")
@@ -37,9 +36,11 @@ const MyNetwork = () => {
     }
 
     useEffect(() => {
-        {/* 
-                        Please Watch the video for full code
-                    */}
+        if(text==='Catch Up with Friends'){
+            fetchFriendList()
+        }else{
+            fetchPendingRequest()
+        }
     }, [text])
 
 
