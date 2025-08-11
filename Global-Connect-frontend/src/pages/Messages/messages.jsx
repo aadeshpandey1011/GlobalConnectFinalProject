@@ -233,22 +233,25 @@ const Messages = () => {
         ref?.current?.scrollIntoView({ behaviour: "smooth" });
     }, [messages])
 
-
+    /* Dushyant is updating from here  */
     const handleSelectedConv = (id, userData) => {
-        {/* 
-                        Please Watch the video for full code
-                    */}
+        setActiveConvId(id)
+        socket.emit("joinConversation",id)
+        setSelectedConDetail(userData)
+
     }
 
+    /*   Dushyant is updating  upto here*/
 
+    /* Dushyant is updating from here also  */
 
     useEffect(() => {
-        {/* 
-                        Please Watch the video for full code
-                    */}
+        let userData = localStorage.getItem('userInfo')
+        setOwnData(userData ? JSON.parse(userData) : null)
+        fetchConversationOnLoad()
     }, [])
 
-
+    /* Dushyant is updating  upto here   */
 
     useEffect(() => {
         if (activeConvId) {
@@ -262,50 +265,69 @@ const Messages = () => {
             setMessages([...messages, response])
         })
     }, [messages])
-
+    /* Dushyant is again started updating from here  */
     const fetchMessages = async () => {
-        {/* 
-                        Please Watch the video for full code
-                    */}
-    }
-
-
-    const fetchConversationOnLoad = async () => {
-        await axios.get('http://localhost:4000/api/conversation/get-conversation', { withCredentials: true }).then(res => {
-            {/* 
-                        Please Watch the video for full code
-                    */}
+        await axios.get(`http://localhost:4000/api/message/${activeConvId}`,{ withCredentials: true }).then(res => {
+            console.log(res)
+            setMessages(res.data.message)
         }).catch(err => {
             console.log(err)
             alert("Something Went Wrong")
         })
     }
+    /* upto here  */
 
+    /* Dushyant is updating from here again   */
+    const fetchConversationOnLoad = async () => {
+        await axios.get('http://localhost:4000/api/conversation/get-conversation', { withCredentials: true }).then(res => {
+            setConversations(res.data.conversations)
+            setActiveConvId(res.data?.conversations[0]?._id)
+            socket.emit("joinConversation",res.data?.conversations[0]?._id)
+            let ownId = ownData?._id;
+            let arr = res.data?.conversations[0]?.members?.filter((it) => it._id !== ownId);
+            setSelectedConDetail(arr[0])
+        }).catch(err => {
+            console.log(err)
+            alert("Something Went Wrong")
+        })
+    }
+    /*Dushyant is updating upto here  */
+
+    /*Dushyant is updating again from  here  */
 
     const handleInputImage = async (e) => {
         const files = e.target.files;
         const data = new FormData();
         data.append('file', files[0]);
 
-        data.append('upload_preset', 'linkedInClone');
+        data.append('upload_preset', 'GlobalConnect');
         setLoading(true)
-        {/* 
-                        Please Watch the video for full code
-                    */}
+        try {
+            const response = await axios.post("https://api.cloudinary.com/v1_1/dxpjl64r4/image/upload", data)
+            const imageUrl = response.data.url;
+            setImageLink(imageUrl)
+        } catch (err) {
+            console.log(err)
+        } finally {
+            setLoading(false)
+        }
     }
+    /*dushyant is udating upto here  */
+   
 
+       /*Dushyant is updating again from  here  */
     const handleSendMessaeg = async () => {
         await axios.post(`http://localhost:4000/api/message`, { conversation: activeConvId, message: messageText, picture: imageLink }, { withCredentials: true }).then(res => {
-
+        
             socket.emit("sendMessage", activeConvId, res.data)
-            {/* 
-                        Please Watch the video for full code
-                    */}
+            setMessageText("")
+         
         }).catch(err => {
             console.log(err)
             alert("Something Went Wrong")
         })
     }
+                   /*Dushyant is updating upto  here  */
     return (
         <div className='px-5 xl:px-50 py-9 flex gap-5 w-full mt-5 bg-gray-100'>
             <div className='w-full justify-between flex pt-5'>
@@ -345,8 +367,8 @@ const Messages = () => {
                                 <div className='w-full md:w-[60%] border-gray-400'>
                                     <div className='border-gray-300 px-2 py-2 border-b-2 flex justify-between items-center'>
                                         <div>
-                                            <p className="text-sm font-semibold">User 1</p>
-                                            <p className="text-sm text-gray-400">hi this is user 1</p>
+                                            <p className="text-sm font-semibold">{selectedConvDetails?.f_name}</p>
+                                            <p className="text-sm text-gray-400">{selectedConvDetails?.headline}</p>
                                         </div>
                                         <div><MoreHorizIcon /></div>
                                     </div>
@@ -376,11 +398,15 @@ const Messages = () => {
 
                                                         <div className='flex w-full cursor-pointer border-gray-300 gap-3 p-4'>
                                                             <div className='shrink-0'>
-                                                                <img className='w-8 h-8 rounded-[100%] cursor-pointer' src='http://res.cloudinary.com/dbraoytbj/image/upload/v1/sample.jpg' />
+                                                                <img className='w-8 h-8 rounded-[100%] cursor-pointer' src={item?.sender?.profilePic} />
                                                             </div>
                                                             <div className='mb-2 w-full'>
-                                                                <div className='text-md'>User 1</div>
-                                                                <div className='text-sm mt-6 hover:bg-gray-200'>This is text message</div>
+                                                                <div className='text-md'>{item?.sender?.f_name}</div>
+                                                                <div className='text-sm mt-6 hover:bg-gray-200'>{item?.message}</div>
+                                                                {
+                                                                    item?.picture && <div className='my-2'><img className=' w-[240px] h-[180px] rounded-md' src={item?.picture} /></div>
+
+                                                                }
                                                             </div>
                                                         </div>
 
