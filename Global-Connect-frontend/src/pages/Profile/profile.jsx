@@ -190,6 +190,7 @@ const Profile = () => {
     const handleLogout = async () => {
         await axios.post('http://localhost:4000/api/auth/logout', {}, { withCredentials: true }).then(res => {
             toast.success(res.data.message);
+            localStorage.clear();
             setTimeout(() => {
                 window.location.reload();
             }, 2000)

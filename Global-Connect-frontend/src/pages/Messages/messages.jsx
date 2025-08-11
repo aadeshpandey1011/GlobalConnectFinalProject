@@ -120,6 +120,7 @@ const Messages = () => {
         
             socket.emit("sendMessage", activeConvId, res.data)
             setMessageText("")
+            window.location.reload();
          
         }).catch(err => {
             console.log(err)
