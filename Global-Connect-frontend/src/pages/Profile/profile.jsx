@@ -130,7 +130,7 @@ const Profile = () => {
     }
 
     const isInSelfPendingList = () => {
-        let arr = userData?.pending_friends?.filter((item) => { return item === userData?._id })
+        let arr = ownData?.pending_friends?.filter((item) => { return item === userData?._id })
         return arr?.length;
     }
     const checkFriendStatus = () => {

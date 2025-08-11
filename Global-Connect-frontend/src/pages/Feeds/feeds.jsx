@@ -35,7 +35,8 @@ const Feeds = () => {
         await axios.get('http://localhost:4000/api/post/getAllPost')
       ]);
       
-      setPersonalData(selfData.data.user)  
+      // setPersonalData(selfData.data.user)  
+      setPersonalData(personalData.data.user)  
       localStorage.setItem('userInfo', JSON.stringify(userData.data.user));  
       setPost(postData.data.posts)
 

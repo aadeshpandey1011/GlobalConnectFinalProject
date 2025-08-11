@@ -106,9 +106,9 @@ const Notification = () => {
 
   const fetchNotificationData = async () => {
     await axios.get('http://localhost:4000/api/notification', { withCredentials: true }).then(res => {
-      {/* 
-                        Please Watch the video for full code
-                    */}
+      console.log(res.data.notifications)
+      setNotifications(res.data.notifications)
+
     }).catch(err => {
       console.log(err);
       alert("Something went wrong")
@@ -155,7 +155,7 @@ const Notification = () => {
               {
                 notifications.map((item, index) => {
                   return (
-                    <div key={index} onClick={() => { handleOnClickNotification(item) }} className={`border-b-1 cursor-pointer flex gap-4 items-center border-gray-300 p-3 ${item?.isRead ? 'bg-gray-200' : 'bg-blue-90'}`}>
+                    <div key={index} onClick={() => { handleOnClickNotification(item) }} className={`border-b-1 cursor-pointer flex gap-4 items-center border-gray-300 p-3 ${item?.isRead ? 'bg-gray-200' : 'bg-blue-100'}`}>
                       <img src={item?.sender?.profilePic} className='rounded-full cursor-pointer w-15 h-15' />
                       <div>{item?.content}</div>
                     </div>
