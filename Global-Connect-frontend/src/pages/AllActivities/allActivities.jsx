@@ -167,10 +167,8 @@ const AllActivities = () => {
                   return (
                     <div key={item._id || index}>
                       <Post item={item} personalData={ownData}/>
-                      {/* DEBUG: Show post ID on screen */}
-                      <div className="text-xs text-gray-400 p-2 bg-yellow-100 border">
-                        Post ID: {item._id} | User: {item.user?._id}
-                      </div>
+                    
+                      
                     </div>
                   )
                 })

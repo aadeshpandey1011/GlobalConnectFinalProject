@@ -198,11 +198,11 @@ const SingleActivity = () => {
     return (
         <div className='px-5 xl:px-50 py-9 flex gap-5 w-full mt-5 bg-gray-100'>
             {/* Debug panel - remove in production */}
-            <div className="fixed top-0 right-0 bg-black text-white p-2 text-xs z-50 max-w-xs">
+            {/* <div className="fixed bottom-0 right-0 bg-black text-white p-2 text-xs z-50 max-w-xs">
                 <div>Debug: Post ID = {postId}</div>
                 <div>User ID = {id}</div>
                 <div>Post loaded = {post ? 'Yes' : 'No'}</div>
-            </div>
+            </div> */}
 
             {/* left side */}
             <div className='w-[21%] sm:block sm:w-[23%] hidden py-5'>

@@ -192,7 +192,8 @@ const Profile = () => {
             toast.success(res.data.message);
             localStorage.clear();
             setTimeout(() => {
-                window.location.reload();
+                // window.location.reload();
+                window.location.href = "/";
             }, 2000)
 
         }).catch(err => {
@@ -243,14 +244,14 @@ const Profile = () => {
 
                                         <div className=' md:flex w-full justify-between'>
                                             <div className='my-5 flex gap-5'>
-                                                <div className="cursor-pointer p-2 border rounded-lg bg-blue-800 text-white font-semibold">
+                                                <div className="cursor-pointer p-2 border rounded-lg bg-red-500 text-white font-semibold">
                                                     Open to
                                                 </div>
-                                                <div onClick={copyToClipboard} className="cursor-pointer p-2 border rounded-lg bg-blue-800 text-white font-semibold">
+                                                <div onClick={copyToClipboard} className="cursor-pointer p-2 border rounded-lg bg-red-500 text-white font-semibold">
                                                     Share
                                                 </div>
                                                 {
-                                                    userData?._id === ownData?._id && <div onClick={handleLogout} className="cursor-pointer p-2 border rounded-lg bg-blue-800 text-white font-semibold">
+                                                    userData?._id === ownData?._id && <div onClick={handleLogout} className="cursor-pointer p-2 border rounded-lg bg-red-500 text-white font-semibold">
                                                         LogOut
                                                     </div>
                                                 }
@@ -258,12 +259,12 @@ const Profile = () => {
                                             </div>
                                             <div className='my-5 flex gap-5'>
                                                 {
-                                                    amIfriend() ? <div onClick={handleMessageModal} className="cursor-pointer p-2 border rounded-lg bg-blue-800 text-white font-semibold" >
+                                                    amIfriend() ? <div onClick={handleMessageModal} className="cursor-pointer p-2 border rounded-lg bg-red-500 text-white font-semibold" >
                                                         Message
                                                     </div> : null
                                                 }
                                                 {
-                                                    userData?._id === ownData?._id ? null : <div onClick={handleSendFriendRequest} className="cursor-pointer p-2 border rounded-lg bg-blue-800 text-white font-semibold">
+                                                    userData?._id === ownData?._id ? null : <div onClick={handleSendFriendRequest} className="cursor-pointer p-2 border rounded-lg bg-red-500 text-white font-semibold">
                                                         {checkFriendStatus()}
 
                                                     </div>
@@ -304,7 +305,7 @@ const Profile = () => {
                                 {
                                     userData?.skills?.map((item, index) => {
                                         return (
-                                            <div key={index} className='py-2 px-3 cursor-pointer bg-blue-800 text-white rounded-lg'>{item}</div>
+                                            <div key={index} className='py-2 px-3 cursor-pointer bg-red-500 text-white rounded-lg'>{item}</div>
                                         )
                                     })
                                 }
@@ -363,7 +364,7 @@ const Profile = () => {
                             </div>
 
                             {
-                                postData.length > 5 && <div className='w-full flex justify-center items-center'>
+                                postData.length > 4 && <div className='w-full flex justify-center items-center'>
                                     <Link to={`/profile/${id}/activities`} className='p-2 rounded-xl cursor-pointer hover:bg-gray-300'>Show All Posts <ArrowRightAltIcon /></Link>
                                 </div>
                             }

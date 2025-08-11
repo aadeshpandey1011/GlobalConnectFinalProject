@@ -6,8 +6,9 @@ const Navbar1 = () => {
             <Link to={'/'} className=" flex justify-between">
                 {
                     <div className="flex gap-1 items-center cursor-pointer">
-                        <h3 className='text-red-400 font-bold text-3xl'>G.Connect</h3>
+                        <h3 className='text-red-400 font-bold text-3xl'>Global</h3>
                         <img src="/images/newlogo.png" width={50} height={50} alt="Global connect logo" />
+                        <h3 className='text-red-400 font-bold text-3xl'>Connect</h3>
                     </div>
                 }
             </Link>
