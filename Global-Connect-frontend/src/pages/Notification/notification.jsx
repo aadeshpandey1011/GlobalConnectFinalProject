@@ -115,11 +115,14 @@ const Notification = () => {
     })
   }
 
-  const handleOnClickNotification = async(item)=>{
-    await axios.put('http://localhost:4000/api/notification/isRead',{notificationId:item._id},{withCredentials:true}).then(res=>{
-        {/* 
-                        Please Watch the video for full code
-                    */}
+  const handleOnClickNotification = async (item) => {
+    await axios.put('http://localhost:4000/api/notification/isRead', { notificationId: item._id }, { withCredentials: true }).then(res => {
+      if (item.type == "comment") {
+        navigate(`/profile/${ownData?._id}/activities/${item.postId}`)
+      } else {
+        navigate('/myNetwork')
+      }
+
     }).catch(err => {
       console.log(err);
       alert("Something went wrong")
@@ -148,21 +151,18 @@ const Notification = () => {
           <Card padding={0} >
             <div className="w-full">
 
-              {/* For each notification */}  {/*  Updated code by me i.e Dushyant kumar */}
-                   <div className='border-b-1 cursor-pointer  flex gap-4 items-center  border-gray-300 p-3 '>
-                   <img src='http://res.cloudinary.com/dbraoytbj/image/upload/v1747306941/xrwoi4wh6ytmzcksnvdf.jpg' className='rounded-full  cursor-pointer w-15 h-15' />
-                   <div> Dummy User sent you friend request</div>
-                </div>
-          
-                {/* For each notification */}  {/*  Updated code by me i.e Dushyant kumar */}
+              {/* For each notification */}  {/*  Updated code by me and me i.e Dushyant kumar and AI Expert */}
+              {
+                notifications.map((item, index) => {
+                  return (
+                    <div key={index} onClick={() => { handleOnClickNotification(item) }} className={`border-b-1 cursor-pointer flex gap-4 items-center border-gray-300 p-3 ${item?.isRead ? 'bg-gray-200' : 'bg-blue-90'}`}>
+                      <img src={item?.sender?.profilePic} className='rounded-full cursor-pointer w-15 h-15' />
+                      <div>{item?.content}</div>
+                    </div>
+                  );
+                })
+              }
 
-                        Please Watch the video for full code
-                   <div className='border-b-1 cursor-pointer  flex gap-4 items-center  border-gray-300 p-3 '>
-                   <img src='http://res.cloudinary.com/dbraoytbj/image/upload/v1747306941/xrwoi4wh6ytmzcksnvdf.jpg' className='rounded-full  cursor-pointer w-15 h-15' />
-                   <div> Dummy User has Commented on your post </div>
-                </div>
-                  
-                    {/*  yaha tk code add hua hai bsss mtlb ki line no. 59 to 70 */}
 
             </div>
           </Card>

@@ -6,9 +6,13 @@ const MessageModal = ({ selfData, userData }) => {
 
 
     const handleSendMessage = async () => {
-        {/* 
-                        Please Watch the video for full code
-                    */}
+        await axios.post('http://localhost:4000/api/conversation/add-conversation', { recieverId: userData?._id, message }, { withCredentials: true }).then(res => {
+            window.location.reload();
+        }).catch(err => {
+            console.log(err);
+            alert(err?.response?.data?.error)
+        })
+
     }
 
     return (

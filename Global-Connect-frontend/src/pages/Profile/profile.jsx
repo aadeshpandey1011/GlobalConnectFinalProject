@@ -203,9 +203,8 @@ const Profile = () => {
     const copyToClipboard = async () => {
         try {
             let string = `http://localhost:5173/profile/${id}`
-            {/* 
-                        Please Watch the video for full code
-                    */}
+            await navigator.clipboard.writeText(string);
+            toast.success('Copied to clipboard!');
         } catch (err) {
             console.error('Failed to copy!', err);
         }
@@ -242,11 +241,11 @@ const Profile = () => {
                                                 <div className="cursor-pointer p-2 border rounded-lg bg-blue-800 text-white font-semibold">
                                                     Open to
                                                 </div>
-                                                <div className="cursor-pointer p-2 border rounded-lg bg-blue-800 text-white font-semibold">
+                                                <div onClick={copyToClipboard} className="cursor-pointer p-2 border rounded-lg bg-blue-800 text-white font-semibold">
                                                     Share
                                                 </div>
                                                 {
-                                                    userData?._id===ownData?._id &&<div className="cursor-pointer p-2 border rounded-lg bg-blue-800 text-white font-semibold">
+                                                    userData?._id===ownData?._id &&<div onClick={handleLogout} className="cursor-pointer p-2 border rounded-lg bg-blue-800 text-white font-semibold">
                                                     LogOut
                                                 </div>
                                                 }
