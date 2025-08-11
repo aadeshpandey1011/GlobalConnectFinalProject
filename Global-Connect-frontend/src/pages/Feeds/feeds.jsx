@@ -16,46 +16,51 @@ const Feeds = () => {
 
   const [personalData, setPersonalData] = useState(null);
   const [post, setPost] = useState([])
-
+  const [loading, setLoading] = useState(true); // Add loading state
   const [addPostModal, setAddPostModal] = useState(false);
-
-  // const fetchSelfData = async()=>{
-  //   await axios.get('http://localhost:4000/api/auth/self',{withCredentials:true}).then(res=>{
-  //     setPersonalData(res.data.user)
-  //   }).catch(err=>{
-  //     console.error('API error:', err);
-  //     toast.error(err?.response?.data?.error)
-  //   })
-  // }
 
   const fetchData = async () => {
     try {
+      setLoading(true); // Set loading to true at start
+      
       const [userData, postData] = await Promise.all([
-        await axios.get('http://localhost:4000/api/auth/self', { withCredentials: true }),
-        await axios.get('http://localhost:4000/api/post/getAllPost')
+        axios.get('http://localhost:4000/api/auth/self', { withCredentials: true }),
+        axios.get('http://localhost:4000/api/post/getAllPost')
       ]);
       
-      // setPersonalData(selfData.data.user)  
-      setPersonalData(personalData.data.user)  
+      // FIXED: This was the main bug - you wrote personalData.data.user instead of userData.data.user
+      setPersonalData(userData.data.user); // CORRECTED
       localStorage.setItem('userInfo', JSON.stringify(userData.data.user));  
-      setPost(postData.data.posts)
+      setPost(postData.data.posts);
 
+      console.log('Personal Data:', userData.data.user); // Debug log
+      console.log('Posts Data:', postData.data.posts); // Debug log
 
     } catch (err) {
-      console.log(err)
-      toast.error(err?.response?.data?.error)
+      console.error('Fetch Error:', err); // Better error logging
+      toast.error(err?.response?.data?.error || 'Failed to fetch data');
+    } finally {
+      setLoading(false); // Set loading to false when done
     }
-
   }
 
   useEffect(() => {
-    // fetchSelfData()
     fetchData()
   }, [])
 
   const handleOpenPostModal = () => {
     setAddPostModal(prev => !prev)
   }
+
+  // Add loading state
+  if (loading) {
+    return (
+      <div className='flex justify-center items-center h-screen'>
+        <Loader />
+      </div>
+    );
+  }
+
   return (
     <div className='px-5 xl:px-50 py-9 flex gap-5 w-full mt-5 bg-gray-100'>
       {/* left side */}
@@ -76,56 +81,56 @@ const Feeds = () => {
             </div>
           </Card>
         </div>
-
       </div>
 
       {/* middle side */}
       <div className='w-[100%] py-5 sm:w-[50%] '>
 
-        {/* Post Section */}        { /*        before all classname i have added onClick= {() =>setAddPostModal(true)} */}
+        {/* Post Section */}        
         <div>
           <Card padding={1}>
             <div className='flex gap-3 items-center'>
               <img src={personalData?.profilePic} className='rounded-4xl border-2 h-13 w-13 border-white cursor-pointer' />
-              <div onClick= {() =>setAddPostModal(true)} className='w-full border-1 py-3 px-3 rounded-3xl cursor-pointer hover:bg-gray-100'>Start a post</div>
+              <div onClick={() => setAddPostModal(true)} className='w-full border-1 py-3 px-3 rounded-3xl cursor-pointer hover:bg-gray-100'>Start a post</div>
             </div>
 
             <div className='w-full flex mt-3 '>
-              <div onClick= {() =>setAddPostModal(true)} className='flex gap-2 p-2 cursor-pointer justify-center rounded-lg w-[33%] hover:bg-gray-100' >
+              <div onClick={() => setAddPostModal(true)} className='flex gap-2 p-2 cursor-pointer justify-center rounded-lg w-[33%] hover:bg-gray-100' >
                 <VideoCallIcon sx={{color:"blue"}} className='text-blue-900' />
                 Video
               </div>
-              <div onClick= {() =>setAddPostModal(true)} className='flex gap-2 p-2 cursor-pointer justify-center rounded-lg w-[33%] hover:bg-gray-100'>
+              <div onClick={() => setAddPostModal(true)} className='flex gap-2 p-2 cursor-pointer justify-center rounded-lg w-[33%] hover:bg-gray-100'>
                 <InsertPhotoIcon sx={{color:"green"}} className='text-green-600' />
                 Photo
               </div>
-              <div  onClick= {() =>setAddPostModal(true)} className='flex gap-2 p-2 cursor-pointer justify-center rounded-lg w-[33%] hover:bg-gray-100'>
+              <div onClick={() => setAddPostModal(true)} className='flex gap-2 p-2 cursor-pointer justify-center rounded-lg w-[33%] hover:bg-gray-100'>
                 <ArticleIcon sx={{color:"red"}} className='text-red-600' />
                 Article
               </div>
             </div>
-                      
           </Card> 
         </div>
-
 
         <div className="border-b-1 border-gray-400 w-[100%] my-5" />
 
         <div className='w-full flex flex-col gap-5'>
-
-          {
+          {/* Debug: Show message if no posts */}
+          {post.length === 0 ? (
+            <Card padding={1}>
+              <div className="text-center text-gray-500 py-8">
+                No posts to display
+              </div>
+            </Card>
+          ) : (
             post.map((item, index) => {
-              return <Post item={item} key={index} personalData={personalData} />;
+              return <Post item={item} key={item._id || index} personalData={personalData} />; // Use item._id as key if available
             })
-          }
-
+          )}
         </div>
-
       </div>
 
       {/* right side */}
       <div className='w-[26%] py-5 hidden md:block'>
-
         <div>
           <Card padding={1}>
             <div className="text-xl" > GlobalConnect News</div>
@@ -144,7 +149,6 @@ const Feeds = () => {
         <div className='my-5 sticky top-19'>
           <Advertisement />
         </div>
-
       </div>
 
       {
@@ -153,7 +157,6 @@ const Feeds = () => {
         </Modal>
       }
       <ToastContainer />
-
     </div>
   )
 }

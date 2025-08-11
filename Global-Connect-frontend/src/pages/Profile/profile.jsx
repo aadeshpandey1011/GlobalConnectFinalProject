@@ -125,7 +125,7 @@ const Profile = () => {
     }
 
     const isInPendingList = () => {
-       let arr = userData?.pending_friends?.filter((item) => { return item === ownData?._id })
+        let arr = userData?.pending_friends?.filter((item) => { return item === ownData?._id })
         return arr?.length;
     }
 
@@ -134,16 +134,16 @@ const Profile = () => {
         return arr?.length;
     }
     const checkFriendStatus = () => {
-        if(amIfriend()){
+        if (amIfriend()) {
             return "Disconnect";
         }
-        else if(isInSelfPendingList()){
+        else if (isInSelfPendingList()) {
             return "Approve Request"
         }
-        else if(isInPendingList()){
+        else if (isInPendingList()) {
             return "Request Sent"
         }
-        else{
+        else {
             return "Connect";
         }
     }
@@ -153,10 +153,10 @@ const Profile = () => {
         if (checkFriendStatus() === "Connect") {
             await axios.post('http://localhost:4000/api/auth/sendFriendReq', { reciever: userData?._id }, { withCredentials: true }).then(res => {
                 toast.success(res.data.message);
-                setTimeout(()=>{
+                setTimeout(() => {
                     window.location.reload();
-                },2000)
-               
+                }, 2000)
+
 
             }).catch(err => {
                 console.log(err);
@@ -164,11 +164,11 @@ const Profile = () => {
             })
         } else if (checkFriendStatus() === "Approve Request") {
             await axios.post('http://localhost:4000/api/auth/acceptFriendRequest', { friendId: userData?._id }, { withCredentials: true }).then(res => {
-               toast.success(res.data.message);
-                setTimeout(()=>{
+                toast.success(res.data.message);
+                setTimeout(() => {
                     window.location.reload();
-                },2000)
-               
+                }, 2000)
+
             }).catch(err => {
                 console.log(err);
                 toast.error(err?.response?.data?.error)
@@ -176,9 +176,9 @@ const Profile = () => {
         } else {
             await axios.delete(`http://localhost:4000/api/auth/removeFromFriendList/${userData?._id}`, { withCredentials: true }).then(res => {
                 toast.success(res.data.message);
-                setTimeout(()=>{
+                setTimeout(() => {
                     window.location.reload();
-                },2000)
+                }, 2000)
 
             }).catch(err => {
                 console.log(err);
@@ -190,15 +190,17 @@ const Profile = () => {
     const handleLogout = async () => {
         await axios.post('http://localhost:4000/api/auth/logout', {}, { withCredentials: true }).then(res => {
             toast.success(res.data.message);
-                setTimeout(()=>{
-                    window.location.reload();
-                },2000)
-               
+            setTimeout(() => {
+                window.location.reload();
+            }, 2000)
+
         }).catch(err => {
             console.log(err);
             toast.error(err?.response?.data?.error)
         })
     }
+
+
 
     const copyToClipboard = async () => {
         try {
@@ -209,6 +211,8 @@ const Profile = () => {
             console.error('Failed to copy!', err);
         }
     };
+
+
 
 
     return (
@@ -245,23 +249,23 @@ const Profile = () => {
                                                     Share
                                                 </div>
                                                 {
-                                                    userData?._id===ownData?._id &&<div onClick={handleLogout} className="cursor-pointer p-2 border rounded-lg bg-blue-800 text-white font-semibold">
-                                                    LogOut
-                                                </div>
+                                                    userData?._id === ownData?._id && <div onClick={handleLogout} className="cursor-pointer p-2 border rounded-lg bg-blue-800 text-white font-semibold">
+                                                        LogOut
+                                                    </div>
                                                 }
-                                                
+
                                             </div>
                                             <div className='my-5 flex gap-5'>
                                                 {
-                                                  amIfriend() ? <div onClick={handleMessageModal} className="cursor-pointer p-2 border rounded-lg bg-blue-800 text-white font-semibold" >
-                                                    Message
-                                                </div>:null
+                                                    amIfriend() ? <div onClick={handleMessageModal} className="cursor-pointer p-2 border rounded-lg bg-blue-800 text-white font-semibold" >
+                                                        Message
+                                                    </div> : null
                                                 }
                                                 {
-                                                userData?._id === ownData?._id ? null : <div onClick={handleSendFriendRequest} className="cursor-pointer p-2 border rounded-lg bg-blue-800 text-white font-semibold">
-                                                    {checkFriendStatus()}
-                                                    
-                                                </div>
+                                                    userData?._id === ownData?._id ? null : <div onClick={handleSendFriendRequest} className="cursor-pointer p-2 border rounded-lg bg-blue-800 text-white font-semibold">
+                                                        {checkFriendStatus()}
+
+                                                    </div>
                                                 }
                                             </div>
                                         </div>
@@ -297,8 +301,8 @@ const Profile = () => {
                                 <div className='py-2 px-3 cursor-pointer bg-blue-800 text-white rounded-lg'>MongoDB JS</div>
                                 <div className='py-2 px-3 cursor-pointer bg-blue-800 text-white rounded-lg'>JavaScript</div> */}
                                 {
-                                    userData?.skills?.map((item,index)=>{
-                                        return(
+                                    userData?.skills?.map((item, index) => {
+                                        return (
                                             <div key={index} className='py-2 px-3 cursor-pointer bg-blue-800 text-white rounded-lg'>{item}</div>
                                         )
                                     })
@@ -327,7 +331,9 @@ const Profile = () => {
                                     <Post profile={1} />
                                 </Link> */}
 
-                                {
+
+
+                                {/* {
                                     postData.map((item,ind)=>{
                                         return (
                                             <Link to={`/profile/${id}/activities/111`} className='cursor-pointer shrink-0 w-[350px] h-[560px]'>
@@ -335,7 +341,22 @@ const Profile = () => {
                                             </Link>
                                         )
                                     })
+                                } */}
+
+                                {
+                                    postData.map((item, ind) => {
+                                        return (
+                                            <Link
+                                                to={`/profile/${id}/activities/${item._id}`}
+                                                className='cursor-pointer shrink-0 w-[350px] h-[560px]'
+                                                key={item._id}
+                                            >
+                                                <Post profile={1} item={item} personalData={ownData} />
+                                            </Link>
+                                        )
+                                    })
                                 }
+
 
 
                             </div>
@@ -354,9 +375,9 @@ const Profile = () => {
                             <div className='flex justify-between items-center'>
                                 <div className='text-xl'>Experience</div>
                                 {
-                                    userData?._id===ownData?._id && <div onClick={handleExpModal} className='cursor-pointer'><AddIcon /></div>
+                                    userData?._id === ownData?._id && <div onClick={handleExpModal} className='cursor-pointer'><AddIcon /></div>
                                 }
-                                
+
                             </div>
 
                             <div className='mt-5 '>
