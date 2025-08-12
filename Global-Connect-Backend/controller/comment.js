@@ -14,7 +14,7 @@ exports.commentPost = async(req,res)=>{
             })
 
         }
-        postExist.comment=postExist.comment+1;
+        postExist.comments=postExist.comments+1;
         await postExist.save();
         const newComment= new CommentModel({user:userId,post:postId,comment});
         await newComment.save();

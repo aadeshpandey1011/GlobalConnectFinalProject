@@ -14,4 +14,14 @@ router.get('/getTop5Post/:userId',PostController.getTop5PostForUser)
 
 router.get('/getAllPostForUser/:userId',PostController.getAllPostForUser)
 
+
+
+
+router.post('/repost', Authentication.auth, PostController.createOrRemoveRepost);
+router.get('/user/:userId/reposts', PostController.getUserReposts);
+router.get('/analytics/reposts', Authentication.auth, PostController.getRepostAnalytics);
+
+
+
+
 module.exports = router;

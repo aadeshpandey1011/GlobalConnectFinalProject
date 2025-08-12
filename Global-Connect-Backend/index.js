@@ -21,6 +21,7 @@ app.use(cors({
 
 const UserRoutes = require('./routes/user');
 const PostRoutes = require('./routes/post');
+
 const NotificationRoutes = require('./routes/notification')
 const CommentRoutes = require('./routes/comment')
 const ConversationRoutes = require('./routes/conversations');
