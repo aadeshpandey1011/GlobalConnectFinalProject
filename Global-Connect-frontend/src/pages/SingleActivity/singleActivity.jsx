@@ -112,14 +112,14 @@ const SingleActivity = () => {
             setLoading(true);
             setError(null);
 
-            console.log('Attempting API call to:', `http://localhost:4000/api/post/getPostById/${postId}`);
+            console.log('Attempting API call to:', `https://globalconnectfinalproject.onrender.com/api/post/getPostById/${postId}`);
             
             // Check if postId exists
             if (!postId || postId === 'undefined') {
                 throw new Error('Post ID is missing or invalid');
             }
 
-            const res = await axios.get(`http://localhost:4000/api/post/getPostById/${postId}`);
+            const res = await axios.get(`https://globalconnectfinalproject.onrender.com/api/post/getPostById/${postId}`);
             console.log('API Response:', res);
             console.log('Post data:', res.data);
 
