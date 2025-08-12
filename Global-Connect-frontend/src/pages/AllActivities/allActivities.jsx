@@ -115,7 +115,7 @@ const AllActivities = () => {
 
   const fetchDataOnLoad = async () => {
     try {
-      const res = await axios.get(`http://localhost:4000/api/post/getAllPostForUser/${id}`)
+      const res = await axios.get(`https://globalconnectfinalproject.onrender.com/api/post/getAllPostForUser/${id}`)
       console.log('API Response:', res)
       console.log('Posts data:', res.data.posts)
       
