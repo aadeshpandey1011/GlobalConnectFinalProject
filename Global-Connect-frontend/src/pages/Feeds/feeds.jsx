@@ -309,8 +309,8 @@ const Feeds = () => {
       setLoading(true);
 
       const [userData, postData] = await Promise.all([
-        axios.get('http://localhost:4000/api/auth/self', { withCredentials: true }),
-        axios.get('http://localhost:4000/api/post/getAllPost')
+        axios.get('https://globalconnectfinalproject.onrender.com/api/auth/self', { withCredentials: true }),
+        axios.get('https://globalconnectfinalproject.onrender.com/api/post/getAllPost')
       ]);
 
       const user = userData.data.user;
