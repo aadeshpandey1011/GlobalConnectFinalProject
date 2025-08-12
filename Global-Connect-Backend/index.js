@@ -16,7 +16,7 @@ app.use(cookieParser());
 app.use(cors({
   credentials: true,
   origin:[ 'http://localhost:5173',
-          'https://your-frontend-domain.vercel.app']
+          'https://global-connect-final-project-ffbmnuizq-aadesh-pandeys-projects.vercel.app/']
   
 }));
 
