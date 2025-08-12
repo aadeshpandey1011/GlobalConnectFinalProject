@@ -28,7 +28,7 @@ const RepostModal = ({ isOpen, onClose, post, personalData, onRepost }) => {
                 payload.thoughts = thoughts.trim();
             }
 
-            const response = await axios.post('http://localhost:4000/api/post/repost', payload, {
+            const response = await axios.post('https://globalconnectfinalproject.onrender.com/api/post/repost', payload, {
                 withCredentials: true
             });
 
