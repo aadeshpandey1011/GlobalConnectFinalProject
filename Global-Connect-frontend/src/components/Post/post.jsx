@@ -82,7 +82,7 @@ const Post = ({ profile, item, personalData, onRepost }) => {
         }
 
         try {
-            const response = await axios.post(`http://localhost:4000/api/comment`, 
+            const response = await axios.post(`https://globalconnectfinalproject.onrender.com/api/comment`, 
                 { postId: item._id, comment: commentText },
                 { withCredentials: true }
             );
@@ -100,7 +100,7 @@ const Post = ({ profile, item, personalData, onRepost }) => {
 
     const handleLikeFunc = async () => {
         try {
-            await axios.post('http://localhost:4000/api/post/likeDislike', 
+            await axios.post('https://globalconnectfinalproject.onrender.com/api/post/likeDislike', 
                 { postId: item._id }, 
                 { withCredentials: true }
             );
@@ -126,7 +126,7 @@ const Post = ({ profile, item, personalData, onRepost }) => {
                 return;
             }
             
-            const response = await axios.post('http://localhost:4000/api/post/repost', 
+            const response = await axios.post('https://globalconnectfinalproject.onrender.com/api/post/repost', 
                 { postId: item._id, repostType: 'direct' }, 
                 { withCredentials: true }
             );
@@ -173,7 +173,7 @@ const Post = ({ profile, item, personalData, onRepost }) => {
         if (!comment) {
             setComment(true);
             try {
-                const response = await axios.get(`http://localhost:4000/api/comment/${item._id}`);
+                const response = await axios.get(`https://globalconnectfinalproject.onrender.com/api/comment/${item._id}`);
                 setComments(response.data.comments || []);
             } catch (err) {
                 console.error("Fetch comments error:", err);
