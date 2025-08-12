@@ -19,7 +19,7 @@ const SignUp = (props) => {
             return toast.error("Please Fill All Details.")
         }
 
-        await axios.post('http://localhost:4000/api/auth/register',registerField).then(res=>{
+        await axios.post('https://globalconnectfinalproject.onrender.com/api/auth/register',registerField).then(res=>{
 
             toast.success("You have registered successfully");
             setRegisterField({...registerField,email: "",password: "",f_name: ""});
