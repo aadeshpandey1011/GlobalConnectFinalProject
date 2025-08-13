@@ -21,7 +21,20 @@ import Notification from './pages/Notification/notification'
 
 
 function App() {
-  const [isLogin,setIsLogin] = useState(localStorage.getItem('isLogin'))
+  // const [isLogin,setIsLogin] = useState(localStorage.getItem('isLogin'))
+  useEffect(() => {
+  const storedLogin = localStorage.getItem('isLogin') === 'true';
+  const storedUser = localStorage.getItem('userInfo');
+  const storedToken = localStorage.getItem('token');
+
+  if (!storedLogin || !storedUser || !storedToken) {
+    setIsLogin(false);
+    localStorage.removeItem('isLogin');
+    localStorage.removeItem('userInfo');
+    localStorage.removeItem('token');
+  }
+}, []);
+
 
   
   const changeLoginValue = (val)=>{
