@@ -22,18 +22,13 @@ import Notification from './pages/Notification/notification'
 
 function App() {
   // const [isLogin,setIsLogin] = useState(localStorage.getItem('isLogin'))
-  useEffect(() => {
+   const [isLogin, setIsLogin] = useState(() => {
   const storedLogin = localStorage.getItem('isLogin') === 'true';
   const storedUser = localStorage.getItem('userInfo');
   const storedToken = localStorage.getItem('token');
+  return storedLogin && storedUser && storedToken;
+});
 
-  if (!storedLogin || !storedUser || !storedToken) {
-    setIsLogin(false);
-    localStorage.removeItem('isLogin');
-    localStorage.removeItem('userInfo');
-    localStorage.removeItem('token');
-  }
-}, []);
 
 
   
