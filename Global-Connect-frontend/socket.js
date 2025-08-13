@@ -8,20 +8,16 @@
 
 
 
+import { io } from "socket.io-client";
 
+const BACKEND_URL =
+  import.meta.env.VITE_API_URL || "http://localhost:10000";
 
-import {io} from "socket.io-client";
-
-// Use environment variable from Vercel or fallback to localhost for development
-
-const BACKEND_URL = 'https://globalconnectfinalproject.onrender.com' ;
-
-console.log('Connecting to backend:', BACKEND_URL); // Debug log
+console.log("Connecting to backend:", BACKEND_URL);
 
 const socket = io(BACKEND_URL, {
-  transports: ['websocket', 'polling'],
-  timeout: 20000,
-  forceNew: true
+  transports: ["websocket", "polling"],
 });
 
 export default socket;
+
