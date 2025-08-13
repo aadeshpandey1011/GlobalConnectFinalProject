@@ -13,7 +13,8 @@
 import {io} from "socket.io-client";
 
 // Use environment variable from Vercel or fallback to localhost for development
-const BACKEND_URL = import.meta.env.VITE_API_URL || 'http://localhost:10000';
+// const BACKEND_URL = import.meta.env.VITE_API_URL || 'http://localhost:10000';
+const BACKEND_URL = https://globalconnectfinalproject.onrender.com;
 
 console.log('Connecting to backend:', BACKEND_URL); // Debug log
 
