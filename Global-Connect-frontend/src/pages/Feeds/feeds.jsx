@@ -310,12 +310,12 @@ const Feeds = () => {
       setLoading(true);
 
       const [userData, postData] = await Promise.all([
-        axios.get('https://globalconnectfinalproject.onrender.com/api/auth/self', { withCredentials: true }),
-      // axios.get(`https://globalconnectfinalproject.onrender.com/api/auth/self`, {
-      //     headers: {
-      //       Authorization: `Bearer ${ token }`
-      //           }
-      //       }),
+        // axios.get('https://globalconnectfinalproject.onrender.com/api/auth/self', { withCredentials: true }),
+      axios.get('https://globalconnectfinalproject.onrender.com/api/auth/self', {
+          headers: {
+            Authorization: `Bearer ${ token }`
+                }
+            }),
 
 
     axios.get('https://globalconnectfinalproject.onrender.com/api/post/getAllPost')
