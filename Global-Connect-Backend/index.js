@@ -71,7 +71,7 @@ app.use(cookieParser());
 app.use(cors({
   credentials: true,
   origin: [
-    'http://localhost:5173',
+    'https://localhost:5173',
     'https://globalconnectfinalproject-1.onrender.com',
     'https://globalconnectfinalproject.onrender.com'
   ]
@@ -105,7 +105,7 @@ const { Server } = require('socket.io');
 const io = new Server(server, {
   cors: {
     origin: [
-      'http://localhost:5173',
+      'https://localhost:5173',
       'https://globalconnectfinalproject-1.onrender.com',
       'https://globalconnectfinalproject.onrender.com'
     ],

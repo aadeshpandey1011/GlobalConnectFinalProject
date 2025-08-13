@@ -51,7 +51,7 @@ const Navbar2 = () => {
     }
 
     const fetchNotification = async () => {
-        await axios.get('https://globalconnectfinalproject.onrender.com/notification/activeNotification', { withCredentials: true }).then(res => {
+        await axios.get('https://globalconnectfinalproject.onrender.com/api/notification/activeNotification', { withCredentials: true }).then(res => {
             var count = res.data.count;
             setNotificationCount(count)
         }).catch(err => {

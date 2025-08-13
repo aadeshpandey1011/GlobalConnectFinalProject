@@ -6,7 +6,7 @@
 import { io } from "socket.io-client";
 
 const BACKEND_URL =
-  import.meta.env.VITE_API_URL || "http://localhost:4000";
+  import.meta.env.VITE_API_URL || "https://localhost:4000";
 
 console.log("Connecting to backend:", BACKEND_URL);
 
