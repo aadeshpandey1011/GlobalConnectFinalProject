@@ -53,7 +53,7 @@ exports.login = async (req, res) => {
             let token =jwt.sign({userId:userExist._id},process.env.JWT_PRIVATE_KEY)
            
             res.cookie('token',token,cookieOptions) 
-            return res.json({message:'Logged In Successfully',success:"true",userExist})
+            return res.json({message:'Logged In Successfully',success:"true",userExist,token})
            
         } else {
             return res.status(400).json({ error: 'Invalid credentials' });
@@ -91,7 +91,7 @@ exports.loginThroghGmail = async (req, res) => {
 
         let jwttoken = jwt.sign({ userId: userExist._id }, process.env.JWT_PRIVATE_KEY);
         res.cookie('token', jwttoken, cookieOptions);
-        return res.status(200).json({ user: userExist });
+        return res.status(200).json({ user: userExist ,jwttoken});
 
     } catch (err) {
         console.error(err);
