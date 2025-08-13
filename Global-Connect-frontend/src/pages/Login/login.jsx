@@ -21,7 +21,7 @@ const Login = (props) => {
            props.changeLoginValue(true);
            localStorage.setItem('isLogin', 'true');
            localStorage.setItem("userInfo", JSON.stringify(res.data.userExist));
-           localStorage.setItem("token", res.data.token); // ✅ Store token here
+           localStorage.setItem('token', res.data.token); 
            
            navigate('/feeds');
 
