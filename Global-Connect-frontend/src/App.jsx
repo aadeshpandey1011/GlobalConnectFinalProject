@@ -24,7 +24,7 @@ function App() {
   // const [isLogin,setIsLogin] = useState(localStorage.getItem('isLogin'))
    const [isLogin, setIsLogin] = useState(() => {
   const storedLogin = localStorage.getItem('isLogin') === 'true';
-  const storedUser = localStorage.getItem('userInfo');
+  const storedUser = localStorage.getItem('userExist');
   const storedToken = localStorage.getItem('token');
   return storedLogin && storedUser && storedToken;
 });
