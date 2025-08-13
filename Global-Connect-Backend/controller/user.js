@@ -11,8 +11,8 @@ const mongoose = require('mongoose');
 const cookieOptions = {
     httpOnly: true,
     secure: true, // Set to true in production
-    sameSite: 'None' // set None in production
-
+    sameSite: 'None', // set None in production
+    maxAge: 7 * 24 * 60 * 60 * 1000
 };
 
 
