@@ -20,6 +20,10 @@ app.use(cors({
   
 }));
 
+app.get('/', (req, res) => {
+  res.send('Global Connect Backend is running');
+});
+
 const UserRoutes = require('./routes/user');
 const PostRoutes = require('./routes/post');
 
