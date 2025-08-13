@@ -15,9 +15,11 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(cors({
   credentials: true,
-  origin:[ 'http://localhost:5173',
-          'https://globalconnectfinalproject-1.onrender.com']
-  
+  origin: [
+    'http://localhost:5173', // local dev
+    'https://globalconnectfinalproject-1.onrender.com', // frontend
+    'https://globalconnectfinalproject.onrender.com'    // backend (if needed for redirects)
+  ]
 }));
 
 app.get('/', (req, res) => {
