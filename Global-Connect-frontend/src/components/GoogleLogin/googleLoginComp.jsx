@@ -12,6 +12,7 @@ const GoogleLoginComp = (props) => {
 
         localStorage.setItem('isLogin', 'true');
         localStorage.setItem("userInfo", JSON.stringify(res.data.user));
+        localStorage.setItem('token', res.data.token); // Store token here
         props.changeLoginValue(true)
         navigate('/feeds')
 
