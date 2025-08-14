@@ -220,7 +220,7 @@ const Profile = () => {
                                 <div className='w-full h-[200px] relative'>
                                     {userData?._id === ownData?._id && <div className='absolute cursor-pointer top-3 right-3 z-20 w-[35px] flex justify-center items-center h-[35px] rounded-full p-3 bg-white' onClick={handleOnEditCover}><EditIcon /></div>}
                                     <img src={userData?.cover_pic} className='w-full h-[200px] rounded-tr-lg rounded-tl-lg ' />
-                                    {userData?._id === ownData?._id &&<div onClick={handleCircularimageOpen} className='absolute object-cover top-24 left-6 z-10'><img className='rounded-full border=2 border-white cursor-pointer w-35 h-35' src={userData?.profilePic} /></div>}
+                                    <div onClick={handleCircularimageOpen} className='absolute object-cover top-24 left-6 z-10'><img className='rounded-full border=2 border-white cursor-pointer w-35 h-35' src={userData?.profilePic} /></div>
                                 </div>
 
                                 <div className='mt-10 relative px-8 py-2'>
