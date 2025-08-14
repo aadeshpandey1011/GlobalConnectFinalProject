@@ -335,7 +335,7 @@ return (
             <div className="text-xs text-gray-400">3h ago</div>
           </div>
           <div className="my-1">
-            <div className="text-md">LinkedIn launches new repost features</div>
+            <div className="text-md">Global Connect launches new repost features</div>
             <div className="text-xs text-gray-400">5h ago</div>
           </div>
         </Card>
