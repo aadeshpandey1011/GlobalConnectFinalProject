@@ -248,7 +248,7 @@ const Profile = () => {
                                             </div>
                                             <div className='my-5 flex gap-5'>
                                                 {
-                                                    amIfriend() ? <div onClick={handleMessageModal} className="cursor-pointer p-2 border rounded-lg bg-red-500 text-white font-semibold hover:bg-red-800>
+                                                    amIfriend() ? <div onClick={handleMessageModal} className="cursor-pointer p-2 border rounded-lg bg-red-500 text-white font-semibold hover:bg-red-800">
                                                         Message
                                                     </div> : null
                                                 }
