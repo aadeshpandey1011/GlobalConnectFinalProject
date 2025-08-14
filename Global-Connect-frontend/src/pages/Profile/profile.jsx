@@ -218,7 +218,7 @@ const Profile = () => {
                         <Card padding={0}>
                             <div className='w-full h-fit '>
                                 <div className='w-full h-[200px] relative'>
-                                    <div className='absolute cursor-pointer top-3 right-3 z-20 w-[35px] flex justify-center items-center h-[35px] rounded-full p-3 bg-white' onClick={handleOnEditCover}><EditIcon /></div>
+                                    {userData?._id === ownData?._id && <div className='absolute cursor-pointer top-3 right-3 z-20 w-[35px] flex justify-center items-center h-[35px] rounded-full p-3 bg-white' onClick={handleOnEditCover}><EditIcon /></div>}
                                     <img src={userData?.cover_pic} className='w-full h-[200px] rounded-tr-lg rounded-tl-lg ' />
                                     <div onClick={handleCircularimageOpen} className='absolute object-cover top-24 left-6 z-10'><img className='rounded-full border=2 border-white cursor-pointer w-35 h-35' src={userData?.profilePic} /></div>
                                 </div>
@@ -233,14 +233,14 @@ const Profile = () => {
 
                                         <div className=' md:flex w-full justify-between'>
                                             <div className='my-5 flex gap-5'>
-                                                <div className="cursor-pointer p-2 border rounded-lg bg-red-500 text-white font-semibold">
+                                                <div className="cursor-pointer p-2 border rounded-lg bg-red-500 text-white font-semibold hover:bg-red-800">
                                                     Open to
                                                 </div>
-                                                <div onClick={copyToClipboard} className="cursor-pointer p-2 border rounded-lg bg-red-500 text-white font-semibold">
+                                                <div onClick={copyToClipboard} className="cursor-pointer p-2 border rounded-lg bg-red-500 text-white font-semibold hover:bg-red-800">
                                                     Share
                                                 </div>
                                                 {
-                                                    userData?._id === ownData?._id && <div onClick={handleLogout} className="cursor-pointer p-2 border rounded-lg bg-red-500 text-white font-semibold">
+                                                    userData?._id === ownData?._id && <div onClick={handleLogout} className="cursor-pointer p-2 border rounded-lg bg-red-500 text-white font-semibold hover:bg-red-800">
                                                         LogOut
                                                     </div>
                                                 }
@@ -248,12 +248,12 @@ const Profile = () => {
                                             </div>
                                             <div className='my-5 flex gap-5'>
                                                 {
-                                                    amIfriend() ? <div onClick={handleMessageModal} className="cursor-pointer p-2 border rounded-lg bg-red-500 text-white font-semibold>
+                                                    amIfriend() ? <div onClick={handleMessageModal} className="cursor-pointer p-2 border rounded-lg bg-red-500 text-white font-semibold hover:bg-red-800>
                                                         Message
                                                     </div> : null
                                                 }
                                                 {
-                                                    userData?._id === ownData?._id ? null : <div onClick={handleSendFriendRequest} className="cursor-pointer p-2 border rounded-lg bg-red-500 text-white font-semibold">
+                                                    userData?._id === ownData?._id ? null : <div onClick={handleSendFriendRequest} className="cursor-pointer p-2 border rounded-lg bg-red-500 text-white font-semibold hover:bg-red-800">
                                                         {checkFriendStatus()}
 
                                                     </div>
@@ -287,6 +287,7 @@ const Profile = () => {
                                     userData?.skills?.map((item, index) => {
                                         return (
                                             <div key={index} className='py-2 px-3 cursor-pointer bg-red-500 text-white rounded-lg'>{item}</div>
+                                            {userData?._id === ownData?._id && <div onClick={handleAboutModal} className='cursor-pointer'><EditIcon /></div>}
                                         )
                                     })
                                 }
