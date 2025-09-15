@@ -200,7 +200,7 @@ const Profile = () => {
 
     const copyToClipboard = async () => {
         try {
-            let string = `https://globalconnectfinalproject-1.onrender.com/profile/${id}`
+            let string = `https://globalconnectfinalproject.onrender.com/profile/${id}`
             await navigator.clipboard.writeText(string);
             toast.success('Copied to clipboard!');
         } catch (err) {
