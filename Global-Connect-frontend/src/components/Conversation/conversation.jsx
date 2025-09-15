@@ -37,12 +37,23 @@ const Conversation = ({ item, key, ownData, handleSelectedConv, activeConvId }) 
     const [memberData, setMemberData] = useState(null)
 
     /* Dushyant is updating */
+    // useEffect(() => {
+    //     let ownId = ownData?._id;
+    //     let arr = item?.members?.filter((it) => it._id !== ownId);
+    //     setMemberData(arr[0])
+    // }, [])
+    /*  Dushyant is updating  upto here */
+
     useEffect(() => {
         let ownId = ownData?._id;
-        let arr = item?.members?.filter((it) => it._id !== ownId);
-        setMemberData(arr[0])
-    }, [])
-    /*  Dushyant is updating  upto here */
+        let arr = item?.members?.filter((it) => it._id !== ownId) || [];
+
+        if (arr.length > 0) {
+            setMemberData(arr[0]);
+        } else {
+            setMemberData(null); // or {} depending on your logic
+        }
+    }, [ownData, item]);
 
 
     const handleClickFunc = async () => {
