@@ -5,3 +5,19 @@ body{
  
     font-style: normal;
 } */
+ /* App.css */
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+
+  /* Modern gradient background */
+  background: radial-gradient(circle at top left, #fca5a5 0%, transparent 25%),
+              radial-gradient(circle at bottom right, #7dd3fc 0%, transparent 25%),
+              linear-gradient(to top right, #ffffff, #fef2f2, #eff6ff);
+
+  background-attachment: fixed; /* Gradient stays in place */
+  min-height: 100vh;
+
+  /* Smooth look */
+  color: #111827;
+}
