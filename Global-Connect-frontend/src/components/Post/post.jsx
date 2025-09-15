@@ -199,7 +199,7 @@ const Post = ({ profile, item, personalData, onRepost }) => {
                 return;
             }
             
-            const url = `https://globalconnectfinalproject.onrender.com/profile/${userId}/activities/${postId}`;
+            const url = `https://globalconnectfinalproject-1.onrender.com/profile/${userId}/activities/${postId}`;
             await navigator.clipboard.writeText(url);
             toast.success('Copied to clipboard!');
         } catch (err) {
